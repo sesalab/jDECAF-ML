@@ -1,0 +1,68 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package it.unisa.jDECAF_ML.smell;
+
+import it.unisa.jDECAF_ML.metrics.Metric;
+import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.metrics.parser.bean.ComponentBean;
+import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author fably
+ */
+public abstract class MethodSmell extends CodeSmell{
+
+    public MethodSmell(String name, String oraclePath) {
+        super(name, oraclePath);
+    }
+
+    @Override
+    public boolean affectsComponent(ComponentBean cb) {
+        MethodBean mb = (MethodBean) cb;
+        BufferedReader br = null;
+        String line = "";
+        String separator = ";";
+        String methodName = mb.getName();
+        String className = mb.getBelongingClass().getName() + ".java";
+        String classPackage = mb.getBelongingClass().getBelongingPackage();
+        try {
+            br = new BufferedReader(new FileReader(oraclePath));
+            while ((line = br.readLine()) != null) {
+                String[] classInfo = line.split(separator);
+                if(classInfo[0].startsWith(" ")){
+                    classInfo[0] = classInfo[0].substring(1);
+                }
+                if(classInfo[1].startsWith(" ")){
+                    classInfo[1] = classInfo[1].substring(1);
+                }
+                if(classInfo[2].startsWith(" ")){
+                    classInfo[2] = classInfo[2].substring(1);
+                }
+                if (classPackage.equals(classInfo[2]) && className.equals(classInfo[1]) && methodName.equals(classInfo[0])) {
+                  //  System.out.println(classInfo[0] + " - " + methodName);
+                  //  System.out.println(classInfo[1] + " - " + className);
+                   // System.out.println(classInfo[2] + " - " + classPackage);
+                    return true;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GodClass.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GodClass.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    
+}
