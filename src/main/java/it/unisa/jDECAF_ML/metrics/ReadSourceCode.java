@@ -68,12 +68,13 @@ public class ReadSourceCode {
 
     }
 
-    public static ArrayList<ClassBean> readSourceCode(File path,
-                                                      ArrayList<ClassBean> classes) throws IOException {
+    public static ArrayList<ClassBean> readSourceCode(File path) throws IOException {
+
+        ArrayList<ClassBean> classes = new ArrayList<>();
 
         if (path.isDirectory() && !path.getName().equals(".DS_Store") && !path.getName().equals("bin")) {
             for (File f : path.listFiles()) {
-                readSourceCode(f, classes);
+                classes.addAll(readSourceCode(f));
             }
         } else {
             if (path.getName().endsWith(".java")) {

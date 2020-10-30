@@ -29,7 +29,7 @@ class CalculateMLMetrics {
             outputFolder.mkdirs();
 
             File outputData = new File(outputFolderPath + "/" + projectName
-                    + "/data.csv");
+                    + "/data_oracle.csv");
             PrintWriter pw = new PrintWriter(outputData);
 
             pw.write("name,");
@@ -53,7 +53,7 @@ class CalculateMLMetrics {
                     File workTreeFile = new File(projectPath + "/" + file.getPath());
                     if (workTreeFile.exists()) {
                         ArrayList<ClassBean> code = new ArrayList<>();
-                        System.addAll(ReadSourceCode.readSourceCode(workTreeFile, code));
+                        System.addAll(ReadSourceCode.readSourceCode(workTreeFile));
                     }
                 }
             }
@@ -67,7 +67,7 @@ class CalculateMLMetrics {
                     int[] smellPresences = new int[smells.size()];
                     if (workTreeFile.exists()) {
                         ArrayList<ClassBean> code = new ArrayList<>();
-                        ArrayList<ClassBean> classes = ReadSourceCode.readSourceCode(workTreeFile, code);
+                        ArrayList<ClassBean> classes = ReadSourceCode.readSourceCode(workTreeFile);
                         if (classes.size() > 0) {
                             classBean = classes.get(0);
                             for (ClassMetric cm : classMetrics) {

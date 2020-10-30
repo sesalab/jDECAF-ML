@@ -163,18 +163,18 @@ public class Main {
         new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);
 
 
-        //new BalancingComparison_NB(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_NB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
-        //new BalancingComparison_CB(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_CB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
-        //new BalancingComparison_R(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_R.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
-        //new BalancingComparison_SM(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_SM.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_NB(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_NB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_CB(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_CB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_R(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_R.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_SM(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_SM.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
      
-        //new BalancingComparison_CSC(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_CSC.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
-        //new BalancingComparison_OCC(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_OCC.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_CSC(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_CSC.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
+        //new BalancingComparison_OCC(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_OCC.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
         
         
-        //new WekaNoBalance(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", outputFolder + "/" + projectName + "/predictions.csv", new NaiveBayes(), 10, classes, methods, classSmell, dr);
-        //new CompareClassifiers(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/classifiers.csv", 1);
-        //new BaselineClassifiers(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/baseline.csv", 1);
+        //new WekaNoBalance(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/output.csv", outputFolder + "/" + projectName + "/predictions.csv", new NaiveBayes(), 10, classes, methods, classSmell, dr);
+        //new CompareClassifiers(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/classifiers.csv", 1);
+        //new BaselineClassifiers(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/baseline.csv", 1);
         //new CreatePythonScript(outputFolder, projectName, metrics, smells, 10);
 
     } 

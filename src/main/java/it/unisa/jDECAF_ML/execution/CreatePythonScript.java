@@ -7,6 +7,7 @@ package it.unisa.jDECAF_ML.execution;
 
 import it.unisa.jDECAF_ML.metrics.classmetrics.ClassMetric;
 import it.unisa.jDECAF_ML.smell.CodeSmell;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -68,7 +69,7 @@ public class CreatePythonScript {
     }
 
     private void writeDatasetLoading(PrintWriter pw) {
-        pw.write("df = pd.read_csv(\"" + outputFolderPath + "/" + projectName + "/data.csv\", header=0) \n"
+        pw.write("df = pd.read_csv(\"" + outputFolderPath + "/" + projectName + "/data_oracle.csv\", header=0) \n"
                 + "df.head()\n"
                 + "print(list(df.columns.values))\n"
                 + "df = df.dropna()\n"
