@@ -1,9 +1,10 @@
 package it.unisa.jDECAF_ML.metrics;
 
 
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.InstanceVariableBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

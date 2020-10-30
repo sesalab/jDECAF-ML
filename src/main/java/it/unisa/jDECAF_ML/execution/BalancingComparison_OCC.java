@@ -5,36 +5,27 @@
  */
 package it.unisa.jDECAF_ML.execution;
 
-import decor.DetectionRule;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import it.unisa.jDECAF_ML.decor.DetectionRule;
+import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import weka.attributeSelection.CfsSubsetEval;
 import weka.classifiers.Classifier;
-import weka.classifiers.CostMatrix;
 import weka.classifiers.Evaluation;
-import weka.classifiers.meta.CostSensitiveClassifier;
 import weka.classifiers.meta.OneClassClassifier;
 import weka.core.Attribute;
-import weka.core.Instances;
 import weka.core.Instance;
-import weka.filters.Filter;
+import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.supervised.instance.ClassBalancer;
 import weka.filters.supervised.instance.Resample;
 import weka.filters.supervised.instance.SMOTE;
+
+import java.io.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

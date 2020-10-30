@@ -6,8 +6,8 @@
 package it.unisa.jDECAF_ML.smell;
 
 import it.unisa.jDECAF_ML.metrics.Metric;
-import it.unisa.jDECAF_ML.metrics.classmetrics.ClassMetric;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ComponentBean;
+import it.unisa.jDECAF_ML.parser.bean.ComponentBean;
+
 import java.util.List;
 
 /**

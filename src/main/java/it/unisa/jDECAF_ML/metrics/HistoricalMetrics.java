@@ -1,12 +1,5 @@
 package it.unisa.jDECAF_ML.metrics;
 
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.InstanceVariableBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class HistoricalMetrics {/*
 
     public static double averageCommitSize(String fileName, List<Commit> pHistory) {

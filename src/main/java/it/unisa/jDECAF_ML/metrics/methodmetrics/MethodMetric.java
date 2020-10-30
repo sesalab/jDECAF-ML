@@ -6,8 +6,7 @@
 package it.unisa.jDECAF_ML.metrics.methodmetrics;
 
 import it.unisa.jDECAF_ML.metrics.Metric;
-import it.unisa.jDECAF_ML.metrics.classmetrics.*;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 
 /**
  *

@@ -5,11 +5,7 @@
  */
 package it.unisa.jDECAF_ML.metrics.methodmetrics;
 
-import it.unisa.jDECAF_ML.metrics.classmetrics.*;
-import it.unisa.jDECAF_ML.metrics.CKMetrics;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 
 /**
  *

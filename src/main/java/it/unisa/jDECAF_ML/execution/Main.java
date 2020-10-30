@@ -5,49 +5,17 @@
  */
 package it.unisa.jDECAF_ML.execution;
 
-import decor.ClassDataShouldBePrivateRule;
-import decor.ComplexClassRule;
-import decor.DetectionRule;
-import decor.FeatureEnvyRule;
-import decor.GodClassRule;
-import decor.InappropriateIntimacyRule;
-import decor.LazyClassRule;
-import decor.LongMethodRule;
-import decor.LongParameterListRule;
-import decor.MiddleManRule;
-import decor.RefusedBequestRule;
-import decor.SpaghettiCodeRule;
-import decor.SpeculativeGeneralityRule;
 import it.unisa.jDECAF_ML.bean.Checkout;
 import it.unisa.jDECAF_ML.bean.Git;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-import it.unisa.jDECAF_ML.smell.ClassDataShouldBePrivate;
-import it.unisa.jDECAF_ML.smell.CodeSmell;
-import it.unisa.jDECAF_ML.smell.ComplexClass;
-import it.unisa.jDECAF_ML.smell.FatRepository;
-import it.unisa.jDECAF_ML.smell.FeatureEnvy;
-import it.unisa.jDECAF_ML.smell.GodClass;
-import it.unisa.jDECAF_ML.smell.InappropriateIntimacy;
-import it.unisa.jDECAF_ML.smell.LazyClass;
-import it.unisa.jDECAF_ML.smell.LongParameterList;
-import it.unisa.jDECAF_ML.smell.MiddleMan;
-import it.unisa.jDECAF_ML.smell.PromiscuousController;
-import it.unisa.jDECAF_ML.smell.RefusedBequest;
-import it.unisa.jDECAF_ML.smell.SmartController;
-import it.unisa.jDECAF_ML.smell.SmartRepository;
-import it.unisa.jDECAF_ML.smell.SpaghettiCode;
-import it.unisa.jDECAF_ML.smell.SpeculativeGenerality;
+import it.unisa.jDECAF_ML.decor.*;
+import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.smell.*;
+import weka.classifiers.bayes.NaiveBayes;
+
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
-import meka.classifiers.multilabel.BR;
-import mulan.classifier.transformation.BinaryRelevance;
-import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.trees.J48;
-import weka.classifiers.trees.RandomForest;
-import weka.core.pmml.jaxbbindings.DecisionTree;
 
 /**
  *

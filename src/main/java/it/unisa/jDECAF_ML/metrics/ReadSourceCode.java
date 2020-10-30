@@ -1,8 +1,8 @@
 package it.unisa.jDECAF_ML.metrics;
 
-import it.unisa.jDECAF_ML.metrics.parser.ClassParser;
-import it.unisa.jDECAF_ML.metrics.parser.ClassVisitor;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.ClassParser;
+import it.unisa.jDECAF_ML.parser.ClassVisitor;
+import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;

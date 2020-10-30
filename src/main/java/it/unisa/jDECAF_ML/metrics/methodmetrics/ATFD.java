@@ -5,13 +5,7 @@
  */
 package it.unisa.jDECAF_ML.metrics.methodmetrics;
 
-import it.unisa.jDECAF_ML.metrics.methodmetrics.MethodMetric;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.InstanceVariableBean;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 
 /**
  *

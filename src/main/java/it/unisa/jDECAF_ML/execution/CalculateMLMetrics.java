@@ -2,9 +2,11 @@ package it.unisa.jDECAF_ML.execution;
 
 import it.unisa.jDECAF_ML.bean.FileBean;
 import it.unisa.jDECAF_ML.bean.Git;
-import it.unisa.jDECAF_ML.metrics.CKMetrics;
 import it.unisa.jDECAF_ML.metrics.ReadSourceCode;
-import it.unisa.jDECAF_ML.metrics.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.metrics.classmetrics.ClassMetric;
+import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.smell.CodeSmell;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,11 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.io.FileUtils;
-import it.unisa.jDECAF_ML.bean.Process;
-import it.unisa.jDECAF_ML.metrics.classmetrics.ClassMetric;
-import it.unisa.jDECAF_ML.metrics.parser.bean.MethodBean;
-import it.unisa.jDECAF_ML.smell.CodeSmell;
 
 class CalculateMLMetrics {
 
