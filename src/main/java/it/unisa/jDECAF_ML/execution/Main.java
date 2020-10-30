@@ -57,80 +57,80 @@ public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        String baseFolder = args[0];//"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data"
-        String smellName = args[1];//"LazyClass"
+        String baseFolder = args[0];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data"
+        String smellName = args[1]; //"LazyClass"
         //baseFolder = "/home/fabiano/Desktop/jdecaf";
         String repoURL = args[2];//"https://github.com/apache/derby.git"
         String folderName = args[3];//"derby"
-        String tag = args[4];//"10.3.3.0"
+        String tag = args[4];   //"10.3.3.0"
         String projectName = folderName + "/" + tag;
         String outputFolder = baseFolder + "/outputs/ML_CB/" + smellName;
-        String oracle = args[5];//"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
+        String oracle = args[5];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
         boolean classSmell = false;
 
         // CodeSmell spaghettiCode =  new SpaghettiCode("Spaghetti Code", "/home/fabiano/Desktop/jdecaf/dataset/apache-ant-data/apache_1.6/Validated/candidate_Spaghetti_Code.csv");
         CodeSmell smell = null;
-        DetectionRule dr = null;
+        DetectionRule detectionRule = null;
         switch (smellName) {
             case "LargeClass":
                 smell = new GodClass(smellName, oracle + "/candidate_Large_Class.csv");
                 classSmell = true;
-                dr = new GodClassRule();
+                detectionRule = new GodClassRule();
                 break;
             case "ClassDataShouldBePrivate":
                 smell = new ClassDataShouldBePrivate(smellName, oracle + "/candidate_Class_Data_Should_Be_Private.csv");
                 classSmell = true;
-                dr = new ClassDataShouldBePrivateRule();
+                detectionRule = new ClassDataShouldBePrivateRule();
                 break;
             case "SpaghettiCode":
                 smell = new SpaghettiCode(smellName, oracle + "/candidate_Spaghetti_Code.csv");
                 classSmell = true;
-                dr = new SpaghettiCodeRule();
+                detectionRule = new SpaghettiCodeRule();
                 break;
             case "ComplexClass":
                 smell = new ComplexClass(smellName, oracle + "/candidate_Complex_Class.csv");
                 classSmell = true;
-                dr = new ComplexClassRule();
+                detectionRule = new ComplexClassRule();
                 break;
             case "FeatureEnvy":
                 smell = new FeatureEnvy(smellName, oracle + "/candidate_Feature_Envy.csv");
-                dr = new FeatureEnvyRule();
+                detectionRule = new FeatureEnvyRule();
                 classSmell = false;
                 break;
             case "LongMethod":
                 smell = new FeatureEnvy(smellName, oracle + "/candidate_Long_Methods.csv");
                 classSmell = false;
-                dr = new LongMethodRule();
+                detectionRule = new LongMethodRule();
                 break;
             case "LazyClass":
                 smell = new LazyClass(smellName, oracle + "/candidate_Lazy_Class.csv");
                 classSmell = true;
-                dr = new LazyClassRule();
+                detectionRule = new LazyClassRule();
                 break;
             case "InappropriateIntimacy":
                 smell = new InappropriateIntimacy(smellName, oracle + "/candidate_Inappropriate_Intimacy.csv");
                 classSmell = true;
-                dr = new InappropriateIntimacyRule();
+                detectionRule = new InappropriateIntimacyRule();
                 break;
             case "SpeculativeGenerality":
                 smell = new SpeculativeGenerality(smellName, oracle + "/candidate_Speculative_Generality.csv");
                 classSmell = true;
-                dr = new SpeculativeGeneralityRule();
+                detectionRule = new SpeculativeGeneralityRule();
                 break;
             case "RefusedBequest":
                 smell = new RefusedBequest(smellName, oracle + "/candidate_Refused_Bequest.csv");
                 classSmell = true;
-                dr = new RefusedBequestRule();
+                detectionRule = new RefusedBequestRule();
                 break;
             case "MiddleMan":
                 smell = new MiddleMan(smellName, oracle + "/candidate_Middle_Man.csv");
                 classSmell = true;
-                dr = new MiddleManRule();
+                detectionRule = new MiddleManRule();
                 break;
             case "LongParameterList":
                 smell = new LongParameterList(smellName, oracle + "/candidate_Long_Parameter_List.csv");
                 classSmell = false;
-                dr = new LongParameterListRule();
+                detectionRule = new LongParameterListRule();
                 break;
             /*case "FatRepository":
                 smell = new FatRepository(smellName, null);
@@ -169,22 +169,22 @@ public class Main {
 
         System.out.println(smellName);
         if (smellName.equals("LazyClass")) {
-            ((LazyClassRule) dr).setProjectClasses(classes);
+            ((LazyClassRule) detectionRule).setProjectClasses(classes);
         }
         else if (smellName.equals("InappropriateIntimacy")) {
-            ((InappropriateIntimacyRule) dr).setProjectClasses(classes);
+            ((InappropriateIntimacyRule) detectionRule).setProjectClasses(classes);
         }
         else if (smellName.equals("SpeculativeGenerality")) {
-            ((SpeculativeGeneralityRule) dr).setProjectClasses(classes);
+            ((SpeculativeGeneralityRule) detectionRule).setProjectClasses(classes);
         }
         else if (smellName.equals("RefusedBequest")) {
-            ((RefusedBequestRule) dr).setProjectClasses(classes);
+            ((RefusedBequestRule) detectionRule).setProjectClasses(classes);
         }
         else if (smellName.equals("MiddleMan")) {
-            ((MiddleManRule) dr).setProjectClasses(classes);
+            ((MiddleManRule) detectionRule).setProjectClasses(classes);
         }
         else if (smellName.equals("LongParameterList")) {
-            ((LongParameterListRule) dr).setProjectClasses(classes);
+            ((LongParameterListRule) detectionRule).setProjectClasses(classes);
         }
 
         // System.out.println("SYSTEM SIZEEEEEEEEE: "+classes.size());
@@ -192,7 +192,7 @@ public class Main {
         new CalculateMetrics(projectName, baseFolder, outputFolder, smell, classSmell, smell.getMetrics(), tag);
         new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
         System.out.println(outputFolder + "/" + projectName + "/data.csv");
-        new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, dr);
+        new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);
 
 
         //new BalancingComparison_NB(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing_NB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);

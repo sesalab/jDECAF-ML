@@ -71,8 +71,7 @@ public class ReadSourceCode {
     public static ArrayList<ClassBean> readSourceCode(File path,
                                                       ArrayList<ClassBean> classes) throws IOException {
 
-        if (path.isDirectory() && !path.getName().equals(".DS_Store")
-                && !path.getName().equals("bin")) {
+        if (path.isDirectory() && !path.getName().equals(".DS_Store") && !path.getName().equals("bin")) {
             for (File f : path.listFiles()) {
                 readSourceCode(f, classes);
             }
