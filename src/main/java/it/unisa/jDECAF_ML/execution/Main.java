@@ -130,8 +130,10 @@ public class Main {
 
         List<ClassBean> allProjectClasses = parseProject(baseFolder, tag, projectName);
 
-        CalculateMetrics cm = new CalculateMetrics(projectName, outputFolder, smell, classSmell, smell.getMetrics(), allProjectClasses);
-      
+        CalculateMetrics.Input calculateMetricsInput = new CalculateMetrics.Input(smell, classSmell, allProjectClasses);
+        CalculateMetrics cm = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
+        cm.execute();
+
         List<ClassBean> classes = cm.getSystem();
         List<MethodBean> methods = new ArrayList<>();
         for (ClassBean cb : classes) {
@@ -161,7 +163,9 @@ public class Main {
         // System.out.println("SYSTEM SIZEEEEEEEEE: "+classes.size());
         //System.out.println("METHODS SIZEEEEEEEEE: "+methods.size());
 
-        new CalculateMetrics(projectName, outputFolder, smell, classSmell, smell.getMetrics(), allProjectClasses);
+        CalculateMetrics calculateMetrics = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
+        calculateMetrics.execute();
+
         new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
         System.out.println(outputFolder + "/" + projectName + "/data.csv");
         new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);

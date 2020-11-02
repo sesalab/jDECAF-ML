@@ -17,17 +17,30 @@ import java.util.logging.Logger;
 
 class CalculateMetrics {
 
-    private List<ClassBean> projectClasses = new ArrayList<>();
+    private final String outputFolderPath;
+    private final String projectName;
+    private List<ClassBean> projectClasses;
+    private List<Metric> classMetrics;
+    private CodeSmell smell;
+    private boolean classSmell;
 
-    public CalculateMetrics(String projectName, String outputFolderPath, CodeSmell smell, boolean classSmell, List<Metric> classMetrics, List<ClassBean> projectClasses) {
+    public CalculateMetrics(String projectName, String outputFolderPath, Input input) {
+        this.smell = input.smell;
+        this.classMetrics = smell.getMetrics();
+        this.classSmell = input.classSmell;
+        this.projectClasses = input.projectClasses;
+        this.outputFolderPath = outputFolderPath;
+        this.projectName = projectName;
+    }
 
+    public void execute() {
         try {
 
             System.out.println("Calculating metrics...");
-            File outputFolder = new File(outputFolderPath + "/" + projectName);
+            File outputFolder = new File(this.outputFolderPath + "/" + this.projectName);
             outputFolder.mkdirs();
 
-            File outputData = new File(outputFolderPath + "/" + projectName
+            File outputData = new File(this.outputFolderPath + "/" + this.projectName
                     + "/data.csv");
             PrintWriter pw = new PrintWriter(outputData);
 
@@ -38,8 +51,6 @@ class CalculateMetrics {
             pw.write("isSmelly\n");
 
             /*leggi oracolo*/
-
-            this.projectClasses = projectClasses;
 
             for(ClassBean candidateClass : this.projectClasses){
                 computeSmellMetricsAndMessage(smell, classSmell, classMetrics, pw, candidateClass);
@@ -93,5 +104,29 @@ class CalculateMetrics {
 
     public List<ClassBean> getSystem() {
         return projectClasses;
+    }
+
+    static class Input {
+        private final CodeSmell smell;
+        private final boolean classSmell;
+        private final List<ClassBean> projectClasses;
+
+        Input(CodeSmell smell, boolean classSmell, List<ClassBean> projectClasses) {
+            this.smell = smell;
+            this.classSmell = classSmell;
+            this.projectClasses = projectClasses;
+        }
+
+        public CodeSmell getSmell() {
+            return smell;
+        }
+
+        public boolean isClassSmell() {
+            return classSmell;
+        }
+
+        public List<ClassBean> getProjectClasses() {
+            return projectClasses;
+        }
     }
 }
