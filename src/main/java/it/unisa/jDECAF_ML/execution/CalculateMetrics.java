@@ -1,9 +1,6 @@
 package it.unisa.jDECAF_ML.execution;
 
-import it.unisa.jDECAF_ML.bean.FileBean;
-import it.unisa.jDECAF_ML.bean.Git;
 import it.unisa.jDECAF_ML.metrics.Metric;
-import it.unisa.jDECAF_ML.metrics.ReadSourceCode;
 import it.unisa.jDECAF_ML.metrics.classmetrics.ClassMetric;
 import it.unisa.jDECAF_ML.metrics.methodmetrics.MethodMetric;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
@@ -22,7 +19,7 @@ class CalculateMetrics {
 
     private List<ClassBean> projectClasses = new ArrayList<>();
 
-    public CalculateMetrics(String projectName, String baseFolderPath, String outputFolderPath, CodeSmell smell, boolean classSmell, List<Metric> classMetrics, String version) {
+    public CalculateMetrics(String projectName, String outputFolderPath, CodeSmell smell, boolean classSmell, List<Metric> classMetrics, List<ClassBean> projectClasses) {
 
         try {
 
@@ -41,10 +38,10 @@ class CalculateMetrics {
             pw.write("isSmelly\n");
 
             /*leggi oracolo*/
-            String projectPath = baseFolderPath + "/" + projectName;
-            projectClasses = getAllProjectClassBeans(version, projectPath);
 
-            for(ClassBean candidateClass : projectClasses){
+            this.projectClasses = projectClasses;
+
+            for(ClassBean candidateClass : this.projectClasses){
                 computeSmellMetricsAndMessage(smell, classSmell, classMetrics, pw, candidateClass);
             }
 
@@ -92,21 +89,6 @@ class CalculateMetrics {
                 pw.write(message);
             }
         }
-    }
-
-    private List<ClassBean> getAllProjectClassBeans(String version, String projectPath) throws IOException {
-        List<FileBean> repoFiles = Git.gitList(new File(projectPath), version);
-        System.out.println("Repo Files Size: " + repoFiles.size());
-        List<ClassBean> projectClasses = new ArrayList<>();
-        for (FileBean file : repoFiles) {
-            if (file.getPath().contains(".java")) {
-                File workTreeFile = new File(projectPath + "/" + file.getPath());
-                if (workTreeFile.exists()) {
-                    projectClasses.addAll(ReadSourceCode.readSourceCode(workTreeFile));
-                }
-            }
-        }
-        return projectClasses;
     }
 
     public List<ClassBean> getSystem() {

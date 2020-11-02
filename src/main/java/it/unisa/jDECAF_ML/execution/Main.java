@@ -127,7 +127,10 @@ public class Main {
 
         Git.clone(repoURL, false, projectName, baseFolder, tag);
         Checkout checkout = new Checkout(projectName, baseFolder, outputFolder, true);
-        CalculateMetrics cm = new CalculateMetrics(projectName, baseFolder, outputFolder, smell, classSmell, smell.getMetrics(), tag);
+
+        List<ClassBean> allProjectClasses = parseProject(baseFolder, tag, projectName);
+
+        CalculateMetrics cm = new CalculateMetrics(projectName, outputFolder, smell, classSmell, smell.getMetrics(), allProjectClasses);
       
         List<ClassBean> classes = cm.getSystem();
         List<MethodBean> methods = new ArrayList<>();
@@ -157,7 +160,8 @@ public class Main {
 
         // System.out.println("SYSTEM SIZEEEEEEEEE: "+classes.size());
         //System.out.println("METHODS SIZEEEEEEEEE: "+methods.size());
-        new CalculateMetrics(projectName, baseFolder, outputFolder, smell, classSmell, smell.getMetrics(), tag);
+
+        new CalculateMetrics(projectName, outputFolder, smell, classSmell, smell.getMetrics(), allProjectClasses);
         new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
         System.out.println(outputFolder + "/" + projectName + "/data.csv");
         new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);
@@ -177,5 +181,11 @@ public class Main {
         //new BaselineClassifiers(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/baseline.csv", 1);
         //new CreatePythonScript(outputFolder, projectName, metrics, smells, 10);
 
-    } 
+    }
+
+    private static List<ClassBean> parseProject(String baseFolder, String tag, String projectName) throws IOException {
+        String projectPath = baseFolder + "/" + projectName;
+        ProjectParser projectParser = new ProjectParser();
+        return projectParser.getAllProjectClassBeans(tag,projectPath);
+    }
 }
