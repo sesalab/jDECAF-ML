@@ -24,4 +24,6 @@ public abstract class ComponentBean {
     public void setName(String pName) {
         name = pName;
     }
+
+    public abstract String getTextContent();
 }

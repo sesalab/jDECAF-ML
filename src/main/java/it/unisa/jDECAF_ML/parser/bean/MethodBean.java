@@ -29,6 +29,7 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
         foreignAccessedFields = new ArrayList<>();
     }
 
+    @Override
     public String getTextContent() {
         return textContent;
     }
