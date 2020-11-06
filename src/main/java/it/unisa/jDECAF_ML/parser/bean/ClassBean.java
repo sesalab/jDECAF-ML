@@ -2,6 +2,7 @@ package it.unisa.jDECAF_ML.parser.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 
 public final class ClassBean extends ComponentBean implements Comparable {
@@ -55,19 +56,21 @@ public final class ClassBean extends ComponentBean implements Comparable {
     }
 
     public Collection<MethodBean> getMethods() {
-        return methods;
+        return Collections.unmodifiableCollection(methods);
     }
 
     public void setMethods(Collection<MethodBean> pMethods) {
-        methods = pMethods;
+        pMethods.forEach(this::addMethod);
     }
 
     public void addMethod(MethodBean pMethod) {
         methods.add(pMethod);
+        pMethod.setBelongingClass(this);
     }
 
     public void removeMethod(MethodBean pMethod) {
         methods.remove(pMethod);
+        pMethod.setBelongingClass(null);
     }
 
     @Override

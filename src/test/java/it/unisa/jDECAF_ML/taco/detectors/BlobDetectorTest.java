@@ -2,6 +2,7 @@ package it.unisa.jDECAF_ML.taco.detectors;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import org.apache.commons.text.similarity.CosineDistance;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BlobDetectorTest {
 
+    private final ComponentSimilarity componentSimilarity = new ApacheTextComponentSimilarity(new CosineDistance());
+
     @Test
     public void when_class_has_one_method_smelliness_probability_is_zero() {
         ClassBean aClass = new ClassBean();
@@ -21,7 +24,7 @@ public class BlobDetectorTest {
         onlyMethod.setTextContent("detect smell similarity");
         aClass.setMethods(Collections.singletonList(onlyMethod));
 
-        SmellDetector blobDetector = new BlobDetector(Collections.singletonList(aClass));
+        SmellDetector blobDetector = new BlobDetector(Collections.singletonList(aClass), componentSimilarity);
         List<AnalyzedComponent> analyzedComponents = blobDetector.detectSmells();
 
         assertThat(analyzedComponents.size()).isEqualTo(1);
@@ -45,7 +48,7 @@ public class BlobDetectorTest {
 
         aClass.setMethods(Arrays.asList(firstMethod,secondMethod));
 
-        SmellDetector blobDetector = new BlobDetector(Collections.singletonList(aClass));
+        SmellDetector blobDetector = new BlobDetector(Collections.singletonList(aClass), componentSimilarity);
         List<AnalyzedComponent> analyzedComponents = blobDetector.detectSmells();
 
         assertThat(analyzedComponents.size()).isEqualTo(1);
