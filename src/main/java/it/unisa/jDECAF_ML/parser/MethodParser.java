@@ -3,6 +3,7 @@ package it.unisa.jDECAF_ML.parser;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.Comment;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
@@ -95,6 +96,14 @@ class MethodParser {
         // Set the invocations
         methodBean.setSelfAccessedFields(selfAccessedFields);
         methodBean.setForeignAccessedFields(foreignAccessedFields);
+
+        //GET BLOCKS
+        BlockVisitor blockVisitor = new BlockVisitor();
+        pMethodNode.accept(blockVisitor);
+        Collection<Block> blocks = blockVisitor.getBlocks();
+        for (Block block: blocks){
+            methodBean.addMethodBlock(BlockParser.parse(block));
+        }
 
         // Return the bean
         return methodBean;

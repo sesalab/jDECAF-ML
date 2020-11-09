@@ -21,12 +21,14 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     private ClassBean belongingClass;
     private int LOC;
     private int CLOC;
+    private Collection<MethodBlockBean> blocks;
 
     public MethodBean() {
         super(null);
         usedInstanceVariables = new ArrayList<>();
         methodCalls = new ArrayList<>();
         foreignAccessedFields = new ArrayList<>();
+        blocks = new ArrayList<>();
     }
 
     @Override
@@ -127,6 +129,11 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
 
     public void removeSelfAccessedField(InstanceVariableBean accessedField) {
         selfAccessedFields.remove(accessedField);
+    }
+
+    public void addMethodBlock(MethodBlockBean block) {
+        blocks.add(block);
+        block.setBelongingMethod(this);
     }
 
     @Override
