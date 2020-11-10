@@ -32,7 +32,7 @@ public class FeatureEnvyDetector implements SmellDetector {
     private AnalyzedComponent analyzeMethod(MethodBean method) {
         ClassBean closestClass = findMostSimilarClass(method);
         Double smellinessProbability = similarity(method,closestClass) - similarity(method,method.getBelongingClass());
-        return new AnalyzedComponent(method,smellinessProbability);
+        return new AnalyzedComponent(method,smellinessProbability, SmellType.FEATURE_ENVY);
     }
 
     private Double similarity(MethodBean method, ClassBean clazz) {

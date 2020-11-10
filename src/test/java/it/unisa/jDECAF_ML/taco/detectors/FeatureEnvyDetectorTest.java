@@ -33,6 +33,7 @@ public class FeatureEnvyDetectorTest {
         AnalyzedComponent actualAnalyzedComponent = analyzedComponents.get(0);
         assertThat(actualAnalyzedComponent.getComponent().getName()).isEqualTo(onlyMethod.getName());
         assertThat(actualAnalyzedComponent.getSmellinessProbability()).isEqualTo(0.0);
+        assertThat(actualAnalyzedComponent.getAnalyzedSmell()).isEqualTo(SmellType.FEATURE_ENVY);
     }
 
     @Test
@@ -57,6 +58,7 @@ public class FeatureEnvyDetectorTest {
         AnalyzedComponent smellyComponent = analyzedComponents.get(0);
         assertThat(smellyComponent.getComponent().getName()).isEqualTo(smellyMethod.getName());
         assertThat(smellyComponent.getSmellinessProbability()).isEqualTo(1.0);
+        assertThat(smellyComponent.getAnalyzedSmell()).isEqualTo(SmellType.FEATURE_ENVY);
 
     }
 }

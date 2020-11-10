@@ -23,7 +23,7 @@ public class BlobDetector implements SmellDetector {
     }
 
     private AnalyzedComponent computeClassSmelliness(ClassBean classBean) {
-        return new AnalyzedComponent(classBean, 1 - classCohesion(classBean));
+        return new AnalyzedComponent(classBean, 1 - classCohesion(classBean), SmellType.BLOB);
     }
 
     private Double classCohesion(ClassBean classBean) {

@@ -2,6 +2,7 @@ package it.unisa.jDECAF_ML.taco.detectors;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBlockBean;
 import org.apache.commons.text.similarity.CosineDistance;
 
 public class ApacheTextComponentSimilarity implements ComponentSimilarity {
@@ -20,6 +21,11 @@ public class ApacheTextComponentSimilarity implements ComponentSimilarity {
     @Override
     public Double similarity(MethodBean method, ClassBean clazz) {
         return textualSimilarity(method.getTextContent(),clazz.getTextContent());
+    }
+
+    @Override
+    public Double similarity(MethodBlockBean blockBean, MethodBlockBean otherBlockBean) {
+        return textualSimilarity(blockBean.getContent(),otherBlockBean.getContent());
     }
 
     private double textualSimilarity(String textContent, String otherTextContent) {

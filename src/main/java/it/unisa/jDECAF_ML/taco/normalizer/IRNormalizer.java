@@ -2,6 +2,7 @@ package it.unisa.jDECAF_ML.taco.normalizer;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.parser.bean.MethodBlockBean;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -18,6 +19,9 @@ public class IRNormalizer {
         classBean.setTextContent(normalizeText(classBean.getTextContent()));
         for(MethodBean classMethod : classBean.getMethods()){
             classMethod.setTextContent(normalizeText(classMethod.getTextContent()));
+            for(MethodBlockBean block: classMethod.getBlocks()){
+                block.setContent(normalizeText(block.getContent()));
+            }
         }
         return classBean;
     }

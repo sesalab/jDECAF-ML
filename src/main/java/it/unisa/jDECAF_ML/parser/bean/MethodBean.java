@@ -3,10 +3,7 @@ package it.unisa.jDECAF_ML.parser.bean;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class MethodBean extends ComponentBean implements Comparable<Object> {
 
@@ -134,6 +131,10 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     public void addMethodBlock(MethodBlockBean block) {
         blocks.add(block);
         block.setBelongingMethod(this);
+    }
+
+    public Collection<MethodBlockBean> getBlocks() {
+        return Collections.unmodifiableCollection(blocks);
     }
 
     @Override

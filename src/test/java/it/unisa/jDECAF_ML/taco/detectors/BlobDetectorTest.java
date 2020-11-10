@@ -31,6 +31,7 @@ public class BlobDetectorTest {
         AnalyzedComponent actualAnalyzedComponent = analyzedComponents.get(0);
         assertThat(actualAnalyzedComponent.getComponent().getName()).isEqualTo(aClass.getName());
         assertThat(actualAnalyzedComponent.getSmellinessProbability()).isEqualTo(0.0);
+        assertThat(actualAnalyzedComponent.getAnalyzedSmell()).isEqualTo(SmellType.BLOB);
     }
 
     @Test
@@ -55,5 +56,6 @@ public class BlobDetectorTest {
         AnalyzedComponent actualAnalyzedComponent = analyzedComponents.get(0);
         assertThat(actualAnalyzedComponent.getComponent().getName()).isEqualTo(aClass.getName());
         assertThat(actualAnalyzedComponent.getSmellinessProbability()).isEqualTo(1.0);
+        assertThat(actualAnalyzedComponent.getAnalyzedSmell()).isEqualTo(SmellType.BLOB);
     }
 }

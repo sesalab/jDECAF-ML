@@ -6,10 +6,12 @@ public final class AnalyzedComponent {
 
     private final ComponentBean component;
     private final Double smellinessProbability;
+    private final SmellType analyzedSmell;
 
-    public AnalyzedComponent(ComponentBean component, Double smellinessProbability) {
+    public AnalyzedComponent(ComponentBean component, Double smellinessProbability, SmellType analyzedSmell) {
         this.component = component;
         this.smellinessProbability = smellinessProbability;
+        this.analyzedSmell = analyzedSmell;
     }
 
     public ComponentBean getComponent() {
@@ -18,5 +20,9 @@ public final class AnalyzedComponent {
 
     public Double getSmellinessProbability() {
         return smellinessProbability;
+    }
+
+    public SmellType getAnalyzedSmell() {
+        return analyzedSmell;
     }
 }
