@@ -7,14 +7,10 @@ import it.unisa.jDECAF_ML.parser.bean.MethodBlockBean;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LongMethodDetector implements SmellDetector {
-
-    private final List<ClassBean> projectClasses;
-    private final ComponentSimilarity similarity;
+public class LongMethodDetector extends AbstractDetector {
 
     public LongMethodDetector(List<ClassBean> projectClasses, ComponentSimilarity similarity) {
-        this.projectClasses = projectClasses;
-        this.similarity = similarity;
+        super(projectClasses,similarity);
     }
 
     @Override
@@ -35,7 +31,7 @@ public class LongMethodDetector implements SmellDetector {
         for (MethodBlockBean currentBlock: methodBean.getBlocks()){
             for (MethodBlockBean otherBlock: methodBean.getBlocks()){
                 if(!currentBlock.equals(otherBlock)){
-                    methodsSimilarities += similarity.similarity(currentBlock,otherBlock);
+                    methodsSimilarities += componentSimilarity.similarity(currentBlock,otherBlock);
                     comparisons++;
                 }
             }

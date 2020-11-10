@@ -8,14 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class FeatureEnvyDetector implements SmellDetector {
-
-    private final List<ClassBean> projectClasses;
-    private final ComponentSimilarity componentSimilarity;
+public class FeatureEnvyDetector extends AbstractDetector {
 
     public FeatureEnvyDetector(List<ClassBean> projectClasses, ComponentSimilarity componentSimilarity) {
-        this.projectClasses = projectClasses;
-        this.componentSimilarity = componentSimilarity;
+        super(projectClasses, componentSimilarity);
     }
 
     @Override

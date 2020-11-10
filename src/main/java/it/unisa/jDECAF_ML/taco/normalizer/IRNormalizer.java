@@ -1,8 +1,5 @@
 package it.unisa.jDECAF_ML.taco.normalizer;
 
-import it.unisa.jDECAF_ML.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.parser.bean.MethodBean;
-import it.unisa.jDECAF_ML.parser.bean.MethodBlockBean;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -11,23 +8,8 @@ import java.util.stream.Collectors;
 
 public class IRNormalizer {
 
-    public List<ClassBean> normalizeClasses(List<ClassBean> projectClasses) {
-        return projectClasses.stream().map(this::normalizeClass).collect(Collectors.toList());
-    }
-
-    private ClassBean normalizeClass(ClassBean classBean) {
-        classBean.setTextContent(normalizeText(classBean.getTextContent()));
-        for(MethodBean classMethod : classBean.getMethods()){
-            classMethod.setTextContent(normalizeText(classMethod.getTextContent()));
-            for(MethodBlockBean block: classMethod.getBlocks()){
-                block.setContent(normalizeText(block.getContent()));
-            }
-        }
-        return classBean;
-    }
-
-    private String normalizeText(String classTextContent) {
-        List<String> terms = extractTerms(classTextContent);
+    public String normalizeText(String inputTextualContent) {
+        List<String> terms = extractTerms(inputTextualContent);
         terms = removeKeywords(terms);
         terms = splitCamelCaseWords(terms);
         terms = deleteNumbers(terms);

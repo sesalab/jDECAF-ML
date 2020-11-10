@@ -1,27 +1,21 @@
 package it.unisa.jDECAF_ML.taco;
 
-import it.unisa.jDECAF_ML.parser.bean.ClassBean;
-import it.unisa.jDECAF_ML.taco.detectors.AnalyzedComponent;
 import it.unisa.jDECAF_ML.taco.detectors.SmellDetector;
-import it.unisa.jDECAF_ML.taco.detectors.SmellDetectorFactory;
-import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
-
-import java.util.List;
+import it.unisa.jDECAF_ML.taco.presenters.TacoAnalysisPresenter;
 
 public class TacoAnalysis {
 
-    private SmellDetectorFactory detectorFactory;
-    private IRNormalizer normalizer;
 
-    public TacoAnalysis(SmellDetectorFactory detectorFactory, IRNormalizer normalizer) {
-        this.detectorFactory = detectorFactory;
-        this.normalizer = normalizer;
+    private final SmellDetector detector;
+    private final TacoAnalysisPresenter presenter;
+
+    public TacoAnalysis(SmellDetector detector, TacoAnalysisPresenter presenter) {
+        this.detector = detector;
+        this.presenter = presenter;
     }
 
-    public List<AnalyzedComponent> execute(List<ClassBean> projectClasses){
-        List<ClassBean > normalizedClasses = normalizer.normalizeClasses(projectClasses);
-        SmellDetector detector = detectorFactory.create(normalizedClasses);
-        return detector.detectSmells();
+    public void execute(){
+        presenter.present(detector.detectSmells());
     }
 
 }

@@ -2,6 +2,7 @@ package it.unisa.jDECAF_ML.taco.detectors;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
+import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
 import org.apache.commons.text.similarity.CosineDistance;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BlobDetectorTest {
 
-    private final ComponentSimilarity componentSimilarity = new ApacheTextComponentSimilarity(new CosineDistance());
+    private final ComponentSimilarity componentSimilarity = new ApacheTextComponentSimilarity(new CosineDistance(), new IRNormalizer());
 
     @Test
     public void when_class_has_one_method_smelliness_probability_is_zero() {

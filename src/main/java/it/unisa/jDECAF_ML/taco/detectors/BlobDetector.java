@@ -7,14 +7,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BlobDetector implements SmellDetector {
-
-    private final List<ClassBean> projectClasses;
-    private final ComponentSimilarity componentSimilarity;
+public class BlobDetector extends AbstractDetector {
 
     public BlobDetector(List<ClassBean> projectClasses, ComponentSimilarity componentSimilarity) {
-        this.projectClasses = projectClasses;
-        this.componentSimilarity = componentSimilarity;
+        super(projectClasses, componentSimilarity);
     }
 
     @Override
