@@ -4,6 +4,7 @@ import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBlockBean;
 import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.similarity.CosineDistance;
 
 public class ApacheTextComponentSimilarity implements ComponentSimilarity {
@@ -32,8 +33,20 @@ public class ApacheTextComponentSimilarity implements ComponentSimilarity {
     }
 
     private double textualSimilarity(String textContent, String otherTextContent) {
-        double value = 1 - distance.apply(normalizer.normalizeText(textContent), normalizer.normalizeText(otherTextContent));
+        String normalizedTextContent = normalizer.normalizeText(textContent);
+        String normalizedOtherTextContent = normalizer.normalizeText(otherTextContent);
+
+        if(!isValid(normalizedTextContent) || !isValid(normalizedOtherTextContent)) {
+            System.out.printf("First text content: %s, Second text content: %s%n",textContent, otherTextContent);
+            System.out.println("Not VALID");
+            return 0.0;
+        }
+        double value = 1 - distance.apply(normalizedTextContent, normalizedOtherTextContent);
         return twoDecimalDigitsApproximation(value);
+    }
+
+    private boolean isValid(String text){
+        return StringUtils.isNotBlank(text);
     }
 
     private double twoDecimalDigitsApproximation(double value) {

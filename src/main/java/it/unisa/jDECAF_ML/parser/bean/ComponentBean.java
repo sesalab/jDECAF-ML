@@ -26,4 +26,6 @@ public abstract class ComponentBean {
     }
 
     public abstract String getTextContent();
+
+    public abstract String getQualifiedName();
 }

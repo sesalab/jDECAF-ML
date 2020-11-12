@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class ApacheTacoAnalysisCsvPresenter extends TacoAnalysisCSVPresenter {
 
-    protected ApacheTacoAnalysisCsvPresenter(String outputDirectoryPath) {
+    public ApacheTacoAnalysisCsvPresenter(String outputDirectoryPath) {
         super(outputDirectoryPath);
     }
 
@@ -19,7 +19,7 @@ public class ApacheTacoAnalysisCsvPresenter extends TacoAnalysisCSVPresenter {
     protected void writeOutputFile(File outputFile, Collection<AnalyzedComponent> analyzedComponents) throws IOException {
         CSVPrinter printer = new CSVPrinter(new FileWriter(outputFile), CSVFormat.DEFAULT.withHeader(Headers.class));
         for (AnalyzedComponent component: analyzedComponents){
-            printer.printRecord(component.getComponent().getName(), component.getAnalyzedSmell(), component.getSmellinessProbability());
+            printer.printRecord(component.getComponent().getQualifiedName(), component.getAnalyzedSmell(), component.getSmellinessProbability());
         }
         printer.flush();
         printer.close();

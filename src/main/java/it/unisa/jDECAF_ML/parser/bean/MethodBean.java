@@ -3,7 +3,10 @@ package it.unisa.jDECAF_ML.parser.bean;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 public class MethodBean extends ComponentBean implements Comparable<Object> {
 
@@ -31,6 +34,11 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     @Override
     public String getTextContent() {
         return textContent;
+    }
+
+    @Override
+    public String getQualifiedName() {
+        return belongingClass.getQualifiedName() + "." + name;
     }
 
     public void setTextContent(String pTextContent) {
@@ -134,7 +142,7 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     }
 
     public Collection<MethodBlockBean> getBlocks() {
-        return Collections.unmodifiableCollection(blocks);
+        return blocks;
     }
 
     @Override

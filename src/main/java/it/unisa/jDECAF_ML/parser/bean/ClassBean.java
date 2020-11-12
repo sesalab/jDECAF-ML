@@ -2,7 +2,6 @@ package it.unisa.jDECAF_ML.parser.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Objects;
 
 public final class ClassBean extends ComponentBean implements Comparable {
@@ -56,7 +55,7 @@ public final class ClassBean extends ComponentBean implements Comparable {
     }
 
     public Collection<MethodBean> getMethods() {
-        return Collections.unmodifiableCollection(methods);
+        return methods;
     }
 
     public void setMethods(Collection<MethodBean> pMethods) {
@@ -95,6 +94,11 @@ public final class ClassBean extends ComponentBean implements Comparable {
 
     public String getTextContent() {
         return textContent;
+    }
+
+    @Override
+    public String getQualifiedName() {
+        return belongingPackage + "." + name;
     }
 
     public void setTextContent(String textContent) {

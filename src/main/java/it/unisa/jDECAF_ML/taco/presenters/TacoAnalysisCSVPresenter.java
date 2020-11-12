@@ -25,6 +25,7 @@ public abstract class TacoAnalysisCSVPresenter implements TacoAnalysisPresenter 
         try {
             File outputFile = getOutputFile();
             writeOutputFile(outputFile, analyzedComponents);
+            System.out.println("TACO results written in "+outputFile.getAbsolutePath());
         } catch (Exception e){
             e.printStackTrace();
         }

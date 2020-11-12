@@ -11,8 +11,15 @@ import it.unisa.jDECAF_ML.decor.*;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
+import it.unisa.jDECAF_ML.taco.TacoAnalysis;
+import it.unisa.jDECAF_ML.taco.detectors.*;
+import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
+import it.unisa.jDECAF_ML.taco.presenters.ApacheTacoAnalysisCsvPresenter;
+import it.unisa.jDECAF_ML.taco.presenters.TacoAnalysisPresenter;
+import org.apache.commons.text.similarity.CosineDistance;
 import weka.classifiers.bayes.NaiveBayes;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -160,11 +167,14 @@ public class Main {
             ((LongParameterListRule) detectionRule).setProjectClasses(classes);
         }
 
-        // System.out.println("SYSTEM SIZEEEEEEEEE: "+classes.size());
-        //System.out.println("METHODS SIZEEEEEEEEE: "+methods.size());
-
         CalculateMetrics calculateMetrics = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
         calculateMetrics.execute();
+
+        System.out.println("Performing TACO analysis...");
+        SmellDetector detector = getSmellDetector(smellName, allProjectClasses);
+        TacoAnalysisPresenter csvPresenter = new ApacheTacoAnalysisCsvPresenter(outputFolder + File.separator + projectName);
+        TacoAnalysis tacoAnalysisUseCase = new TacoAnalysis(detector,csvPresenter);
+        tacoAnalysisUseCase.execute();
 
         new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
         System.out.println(outputFolder + "/" + projectName + "/data.csv");
@@ -185,6 +195,25 @@ public class Main {
         //new BaselineClassifiers(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/baseline.csv", 1);
         //new CreatePythonScript(outputFolder, projectName, metrics, smells, 10);
 
+    }
+
+    private static SmellDetector getSmellDetector(String smellName, List<ClassBean> allProjectClasses) {
+        ComponentSimilarity componentSimilarity = new ApacheTextComponentSimilarity(new CosineDistance(), new IRNormalizer());
+        SmellDetector detector;
+        switch (smellName){
+            case "LargeClass":
+                detector = new BlobDetector(allProjectClasses,componentSimilarity);
+                break;
+            case "FeatureEnvy":
+                detector = new FeatureEnvyDetector(allProjectClasses,componentSimilarity);
+                break;
+            case "LongMethod":
+                detector = new LongMethodDetector(allProjectClasses,componentSimilarity);
+                break;
+            default:
+                throw new IllegalArgumentException("There is no TACO detector for this smell");
+        }
+        return detector;
     }
 
     private static List<ClassBean> parseProject(String baseFolder, String tag, String projectName) throws IOException {
