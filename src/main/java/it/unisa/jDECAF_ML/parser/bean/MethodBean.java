@@ -18,8 +18,6 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     private Type returnType;
     private List<SingleVariableDeclaration> parameters;
     private ClassBean belongingClass;
-    private int LOC;
-    private int CLOC;
     private Collection<MethodBlockBean> blocks;
 
     public MethodBean() {
@@ -34,23 +32,6 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     public String getQualifiedName() {
         return belongingClass.getQualifiedName() + "." + name;
     }
-    
-    public int getLOC(){
-        return LOC;
-    }
-    
-    public void setLOC(int LOC){
-        this.LOC = LOC;
-    }
-    
-     public int getCLOC(){
-        return CLOC;
-    }
-    
-    public void setCLOC(int CLOC){
-        this.CLOC = CLOC;
-    }
-    
 
     public Collection<String> getNames(){
         return names;

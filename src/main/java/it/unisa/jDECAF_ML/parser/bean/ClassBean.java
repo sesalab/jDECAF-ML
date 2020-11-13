@@ -9,8 +9,6 @@ public class ClassBean extends ComponentBean implements Comparable {
     private Collection<InstanceVariableBean> instanceVariables;
     private Collection<MethodBean> methods;
     private Collection<String> imports;
-    private int LOC;
-    private int CLOC;
     private String superclass;
     private String belongingPackage;
 
@@ -18,23 +16,7 @@ public class ClassBean extends ComponentBean implements Comparable {
         super(null);
         instanceVariables = new ArrayList<>();
         methods = new ArrayList<>();
-        setImports(new ArrayList<String>());
-    }
-
-    public int getLOC() {
-        return LOC;
-    }
-
-    public void setLOC(int lOC) {
-        LOC = lOC;
-    }
-    
-    public int getCLOC() {
-        return CLOC;
-    }
-
-    public void setCLOC(int ClOC) {
-        CLOC = ClOC;
+        setImports(new ArrayList<>());
     }
 
     public Collection<InstanceVariableBean> getInstanceVariables() {

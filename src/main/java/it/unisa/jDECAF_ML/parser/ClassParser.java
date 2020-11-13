@@ -1,6 +1,7 @@
 package it.unisa.jDECAF_ML.parser;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.bean.CommentBean;
 import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import org.eclipse.jdt.core.dom.Comment;
@@ -10,7 +11,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.regex.Pattern;
 
 public class ClassParser {
 
@@ -35,24 +35,15 @@ public class ClassParser {
         Collection<FieldDeclaration> instanceVariableNodes = new ArrayList<>();
         pClassNode.accept(new InstanceVariableVisitor(instanceVariableNodes));
 
-        classBean.setTextContent(pClassNode.toString());
-        
-       
-        Pattern newLine = Pattern.compile("\n");
-        String[] lines = newLine.split(pClassNode.toString());
+        String classTextContent = pClassNode.toString();
+        classBean.setTextContent(classTextContent);
 
-        classBean.setLOC(lines.length);
-        
-        
         // Get the comment nodes
         Collection<Comment> comments = new ArrayList<>();
         pClassNode.accept(new CommentVisitor(comments));
-        int CLOC = 0;
         for (Comment comment : comments) {
-            lines = newLine.split(comment.toString());
-            CLOC += lines.length;
+            classBean.addComment(new CommentBean(comment.toString()));
         }
-        classBean.setCLOC(CLOC);
 
         // Get the instance variable beans from the instance variable nodes
         Collection<InstanceVariableBean> instanceVariableBeans = new ArrayList<>();

@@ -1,6 +1,7 @@
 package it.unisa.jDECAF_ML.parser;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
+import it.unisa.jDECAF_ML.parser.bean.CommentBean;
 import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import org.eclipse.jdt.core.dom.Block;
@@ -10,7 +11,6 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.regex.Pattern;
 
 class MethodParser {
 
@@ -30,21 +30,13 @@ class MethodParser {
 
         // Set the textual content
         methodBean.setTextContent(pMethodNode.toString());
-        
-        Pattern newLine = Pattern.compile("\n");
-        String[] lines = newLine.split(pMethodNode.toString());
-        
-        methodBean.setLOC(lines.length);
-        
+
         // Get the comment nodes
         Collection<Comment> comments = new ArrayList<>();
         pMethodNode.accept(new CommentVisitor(comments));
-        int CLOC = 0;
         for (Comment comment : comments) {
-            lines = newLine.split(comment.toString());
-            CLOC += lines.length;
+            methodBean.addComment(new CommentBean(comment.toString()));
         }
-        methodBean.setCLOC(CLOC);
 //        Pattern comment = Pattern.compile("((^\\s*[*])|(^\\s*[/][*])|(^\\s*[/][/])).*");
 //        String[] cLines = comment.split(pMethodNode.toString());
 //        int CLOC = 0;
