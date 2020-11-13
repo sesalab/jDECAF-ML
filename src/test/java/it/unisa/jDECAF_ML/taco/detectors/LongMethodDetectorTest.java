@@ -19,7 +19,7 @@ public class LongMethodDetectorTest {
     @Test
     public void when_there_is_one_fragment_probability_is_zero() {
         MethodBlockBean onlyBlock = new MethodBlockBean();
-        onlyBlock.setContent("detect smell class project");
+        onlyBlock.setTextContent("detect smell class project");
 
         MethodBean blockContainer = new MethodBean();
         blockContainer.setName("blockContainer");
@@ -43,10 +43,10 @@ public class LongMethodDetectorTest {
     @Test
     public void when_method_has_two_blocks_with_no_term_in_common_probability_is_one() {
         MethodBlockBean firstBlock = new MethodBlockBean();
-        firstBlock.setContent("detect smell similarity");
+        firstBlock.setTextContent("detect smell similarity");
 
         MethodBlockBean secondBlock = new MethodBlockBean();
-        secondBlock.setContent("sell book");
+        secondBlock.setTextContent("sell book");
 
         MethodBean longMethodBean = new MethodBean();
         longMethodBean.setName("longMethod");

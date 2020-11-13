@@ -29,7 +29,7 @@ public class ApacheTextComponentSimilarity implements ComponentSimilarity {
 
     @Override
     public Double similarity(MethodBlockBean blockBean, MethodBlockBean otherBlockBean) {
-        return textualSimilarity(blockBean.getContent(),otherBlockBean.getContent());
+        return textualSimilarity(blockBean.getTextContent(),otherBlockBean.getTextContent());
     }
 
     private double textualSimilarity(String textContent, String otherTextContent) {

@@ -5,6 +5,10 @@
  */
 package it.unisa.jDECAF_ML.parser.bean;
 
+import it.unisa.jDECAF_ML.parser.bean.text.ApacheCosineSimilarityStrategy;
+import it.unisa.jDECAF_ML.parser.bean.text.IRNormalizer;
+import org.apache.commons.text.similarity.CosineDistance;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -20,11 +24,16 @@ public abstract class ComponentBean {
     protected String textContent;
     protected String name;
     protected List<CommentBean> comments;
+    private final TextualSimilarityStrategy similarityStrategy;
+    private final TextNormalizationStrategy normalizationStrategy;
 
 
     public ComponentBean(String name) {
         this.name = name;
         comments = new LinkedList<>();
+        //TODO: Refactor to make them pure strategies
+        similarityStrategy = new ApacheCosineSimilarityStrategy(new CosineDistance());
+        normalizationStrategy = new IRNormalizer();
     }
 
     public String getName() {
@@ -59,4 +68,12 @@ public abstract class ComponentBean {
         comments.add(commentBean);
     }
     public abstract String getQualifiedName();
+
+    public Double textualSimilarityWith(ComponentBean otherBean){
+        return similarityStrategy.textualSimilarity(normalizedTextContent(),otherBean.normalizedTextContent());
+    }
+
+    public String normalizedTextContent(){
+        return normalizationStrategy.normalizeText(textContent);
+    }
 }

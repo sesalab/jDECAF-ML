@@ -169,7 +169,7 @@ public class Main {
 
         CalculateMetrics calculateMetrics = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
         calculateMetrics.execute();
-        
+
         System.out.println("Performing TACO analysis...");
         SmellDetector detector = getSmellDetector(smellName, allProjectClasses);
         TacoAnalysisPresenter csvPresenter = new ApacheTacoAnalysisCsvPresenter(outputFolder + File.separator + projectName);

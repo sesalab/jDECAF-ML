@@ -7,7 +7,7 @@ public class BlockParser {
 
     public static MethodBlockBean parse(Block block) {
         MethodBlockBean blockBean = new MethodBlockBean();
-        blockBean.setContent(block.toString());
+        blockBean.setTextContent(block.toString());
         return blockBean;
     }
 
