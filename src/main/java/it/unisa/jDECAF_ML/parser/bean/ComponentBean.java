@@ -11,7 +11,8 @@ package it.unisa.jDECAF_ML.parser.bean;
  */
 public abstract class ComponentBean {
 
-    String name;
+    protected String textContent;
+    protected String name;
 
     public ComponentBean(String name) {
         this.name = name;
@@ -25,7 +26,13 @@ public abstract class ComponentBean {
         name = pName;
     }
 
-    public abstract String getTextContent();
+    public String getTextContent() {
+        return textContent;
+    }
+
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
+    }
 
     public abstract String getQualifiedName();
 }

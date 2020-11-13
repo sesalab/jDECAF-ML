@@ -10,7 +10,6 @@ import java.util.Objects;
 
 public class MethodBean extends ComponentBean implements Comparable<Object> {
 
-    private String textContent;
     private Collection<InstanceVariableBean> usedInstanceVariables;
     private Collection<MethodBean> methodCalls;
     private Collection<InstanceVariableBean> foreignAccessedFields;
@@ -32,17 +31,8 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     }
 
     @Override
-    public String getTextContent() {
-        return textContent;
-    }
-
-    @Override
     public String getQualifiedName() {
         return belongingClass.getQualifiedName() + "." + name;
-    }
-
-    public void setTextContent(String pTextContent) {
-        textContent = pTextContent;
     }
     
     public int getLOC(){

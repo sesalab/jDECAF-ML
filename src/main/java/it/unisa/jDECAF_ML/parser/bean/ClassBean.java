@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
-public final class ClassBean extends ComponentBean implements Comparable {
+public class ClassBean extends ComponentBean implements Comparable {
 
     private Collection<InstanceVariableBean> instanceVariables;
     private Collection<MethodBean> methods;
     private Collection<String> imports;
-    private String textContent;
     private int LOC;
     private int CLOC;
     private String superclass;
@@ -92,17 +91,9 @@ public final class ClassBean extends ComponentBean implements Comparable {
         this.imports = imports;
     }
 
-    public String getTextContent() {
-        return textContent;
-    }
-
     @Override
     public String getQualifiedName() {
         return belongingPackage + "." + name;
-    }
-
-    public void setTextContent(String textContent) {
-        this.textContent = textContent;
     }
 
     public String getSuperclass() {
