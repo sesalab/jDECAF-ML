@@ -9,8 +9,7 @@ import it.unisa.jDECAF_ML.parser.bean.text.ApacheCosineSimilarityStrategy;
 import it.unisa.jDECAF_ML.parser.bean.text.IRNormalizer;
 import org.apache.commons.text.similarity.CosineDistance;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -20,6 +19,7 @@ import java.util.regex.Pattern;
 public abstract class ComponentBean {
 
     private static final Pattern NEWLINE = Pattern.compile("\n");
+    private static final Pattern SPACES = Pattern.compile("\\s+");
 
     protected String textContent;
     protected String name;
@@ -75,5 +75,35 @@ public abstract class ComponentBean {
 
     public String normalizedTextContent(){
         return normalizationStrategy.normalizeText(textContent);
+    }
+
+    public Double wordsEntropy(){
+        return calculateNormalizedShannonEntropy(Arrays.asList(SPACES.split(normalizedTextContent())));
+    }
+
+    private  Double calculateNormalizedShannonEntropy(List<String> values) {
+        Map<String, Integer> map = new HashMap<>();
+        // count the occurrences of each value
+        for (String sequence : values) {
+            if (!map.containsKey(sequence)) {
+                map.put(sequence, 0);
+            }
+            map.put(sequence, map.get(sequence) + 1);
+        }
+
+
+
+        int sampleSize = map.keySet().size();
+        if(sampleSize <= 1){
+            return 0.0;
+        }
+        // calculate the entropy
+        double result = 0.0;
+        for (String sequence : map.keySet()) {
+            double frequency = (double) map.get(sequence) / values.size();
+            result += frequency * (Math.log(frequency) / Math.log(sampleSize));
+        }
+
+        return -result;
     }
 }
