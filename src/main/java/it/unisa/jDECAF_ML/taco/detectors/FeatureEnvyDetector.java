@@ -8,16 +8,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class FeatureEnvyDetector extends AbstractDetector {
+public class FeatureEnvyDetector implements SmellDetector {
+
+    private final List<ClassBean> projectClasses;
 
     public FeatureEnvyDetector(List<ClassBean> projectClasses) {
-        super(projectClasses);
+        this.projectClasses = projectClasses;
     }
 
     @Override
-    public List<AnalyzedComponent> detectSmells() {
+    public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {
         List<AnalyzedComponent> result = new LinkedList<>();
-        for(ClassBean clazz: projectClasses) {
+        for(ClassBean clazz: classesUnderAnalysis) {
             for (MethodBean method: clazz.getMethods()){
                 result.add(analyzeMethod(method));
             }

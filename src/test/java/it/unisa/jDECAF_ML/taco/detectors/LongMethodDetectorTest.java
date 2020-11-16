@@ -25,8 +25,8 @@ public class LongMethodDetectorTest {
         onlyClass.setName("onlyClass");
         onlyClass.addMethod(blockContainer);
 
-        SmellDetector longMethodDetector = new LongMethodDetector(Collections.singletonList(onlyClass));
-        List<AnalyzedComponent> analyzedComponents = longMethodDetector.detectSmells();
+        SmellDetector longMethodDetector = new LongMethodDetector();
+        List<AnalyzedComponent> analyzedComponents = longMethodDetector.detectSmells(Collections.singletonList(onlyClass));
         assertThat(analyzedComponents.size()).isEqualTo(1);
 
         AnalyzedComponent analyzedMethod = analyzedComponents.get(0);
@@ -53,8 +53,8 @@ public class LongMethodDetectorTest {
         onlyClass.setName("onlyClass");
         onlyClass.addMethod(longMethodBean);
 
-        SmellDetector longMethodDetector = new LongMethodDetector(Collections.singletonList(onlyClass));
-        List<AnalyzedComponent> analyzedComponents = longMethodDetector.detectSmells();
+        SmellDetector longMethodDetector = new LongMethodDetector();
+        List<AnalyzedComponent> analyzedComponents = longMethodDetector.detectSmells(Collections.singletonList(onlyClass));
         assertThat(analyzedComponents.size()).isEqualTo(1);
 
         AnalyzedComponent analyzedMethod = analyzedComponents.get(0);

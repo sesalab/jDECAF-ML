@@ -6,15 +6,11 @@ import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LongMethodDetector extends AbstractDetector {
-
-    public LongMethodDetector(List<ClassBean> projectClasses) {
-        super(projectClasses);
-    }
+public class LongMethodDetector implements SmellDetector {
 
     @Override
-    public List<AnalyzedComponent> detectSmells() {
-        List<MethodBean> allMethods = projectClasses.stream().flatMap(clazz -> clazz.getMethods().stream()).collect(Collectors.toList());
+    public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {
+        List<MethodBean> allMethods = classesUnderAnalysis.stream().flatMap(clazz -> clazz.getMethods().stream()).collect(Collectors.toList());
         return allMethods.stream().map(this::analyzeMethod).collect(Collectors.toList());
     }
 

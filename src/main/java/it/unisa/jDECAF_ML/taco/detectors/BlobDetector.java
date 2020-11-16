@@ -5,15 +5,11 @@ import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BlobDetector extends AbstractDetector {
-
-    public BlobDetector(List<ClassBean> projectClasses) {
-        super(projectClasses);
-    }
+public class BlobDetector implements SmellDetector {
 
     @Override
-    public List<AnalyzedComponent> detectSmells() {
-        return projectClasses.stream().map(this::computeClassSmelliness).collect(Collectors.toList());
+    public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {
+        return classesUnderAnalysis.stream().map(this::computeClassSmelliness).collect(Collectors.toList());
     }
 
     private AnalyzedComponent computeClassSmelliness(ClassBean classBean) {

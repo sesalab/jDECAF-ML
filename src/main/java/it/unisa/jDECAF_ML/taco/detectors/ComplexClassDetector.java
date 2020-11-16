@@ -7,14 +7,8 @@ import java.util.stream.Collectors;
 
 public class ComplexClassDetector implements SmellDetector {
 
-    private final List<ClassBean> projectClasses;
-
-    public ComplexClassDetector(List<ClassBean> projectClasses) {
-        this.projectClasses = projectClasses;
-    }
-
     @Override
-    public List<AnalyzedComponent> detectSmells() {
+    public List<AnalyzedComponent> detectSmells(List<ClassBean> projectClasses) {
         return projectClasses.stream().map(this::analyzeClass).collect(Collectors.toList());
     }
 

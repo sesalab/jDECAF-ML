@@ -174,7 +174,7 @@ public class Main {
         System.out.println("Performing TACO analysis...");
         SmellDetector detector = getSmellDetector(smellName, allProjectClasses);
         TacoAnalysisPresenter csvPresenter = new ApacheTacoAnalysisCsvPresenter(outputFolder + File.separator + projectName);
-        TacoAnalysis tacoAnalysisUseCase = new TacoAnalysis(detector,csvPresenter);
+        TacoAnalysis tacoAnalysisUseCase = new TacoAnalysis(allProjectClasses, detector,csvPresenter);
         tacoAnalysisUseCase.execute();
 
         new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
@@ -202,13 +202,13 @@ public class Main {
         SmellDetector detector;
         switch (smellName){
             case "LargeClass":
-                detector = new BlobDetector(allProjectClasses);
+                detector = new BlobDetector();
                 break;
             case "FeatureEnvy":
                 detector = new FeatureEnvyDetector(allProjectClasses);
                 break;
             case "LongMethod":
-                detector = new LongMethodDetector(allProjectClasses);
+                detector = new LongMethodDetector();
                 break;
             default:
                 throw new IllegalArgumentException("There is no TACO detector for this smell");
