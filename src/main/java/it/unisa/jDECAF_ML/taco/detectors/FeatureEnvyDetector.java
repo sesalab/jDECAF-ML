@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public class FeatureEnvyDetector extends AbstractDetector {
 
-    public FeatureEnvyDetector(List<ClassBean> projectClasses, ComponentSimilarity componentSimilarity) {
-        super(projectClasses, componentSimilarity);
+    public FeatureEnvyDetector(List<ClassBean> projectClasses) {
+        super(projectClasses);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FeatureEnvyDetector extends AbstractDetector {
     }
 
     private Double similarity(MethodBean method, ClassBean clazz) {
-        return componentSimilarity.similarity(method,clazz);
+        return method.textualSimilarityWith(clazz);
     }
 
     private ClassBean findMostSimilarClass(MethodBean method) {

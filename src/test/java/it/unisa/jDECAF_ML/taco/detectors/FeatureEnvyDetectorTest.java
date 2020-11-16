@@ -3,8 +3,6 @@ package it.unisa.jDECAF_ML.taco.detectors;
 
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
-import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
-import org.apache.commons.text.similarity.CosineDistance;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -14,8 +12,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FeatureEnvyDetectorTest {
-
-    private final ComponentSimilarity similarity = new ApacheTextComponentSimilarity(new CosineDistance(), new IRNormalizer());
 
     @Test
     public void when_there_is_one_class_should_return_0_probability() {
@@ -27,7 +23,7 @@ public class FeatureEnvyDetectorTest {
         onlyMethod.setTextContent("detect smell similarity");
         aClass.setMethods(Collections.singletonList(onlyMethod));
 
-        SmellDetector detector = new FeatureEnvyDetector(Collections.singletonList(aClass), similarity);
+        SmellDetector detector = new FeatureEnvyDetector(Collections.singletonList(aClass));
         List<AnalyzedComponent> analyzedComponents = detector.detectSmells();
 
         assertThat(analyzedComponents.size()).isEqualTo(1);
@@ -52,7 +48,7 @@ public class FeatureEnvyDetectorTest {
         secondClass.setName("SecondClass");
         secondClass.setTextContent("convert local time");
 
-        SmellDetector detector = new FeatureEnvyDetector(Arrays.asList(firstClass,secondClass),similarity);
+        SmellDetector detector = new FeatureEnvyDetector(Arrays.asList(firstClass,secondClass));
         List<AnalyzedComponent> analyzedComponents = detector.detectSmells();
 
         assertThat(analyzedComponents.size()).isEqualTo(1);

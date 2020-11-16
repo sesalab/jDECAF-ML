@@ -6,10 +6,8 @@ import java.util.List;
 
 public abstract class AbstractDetector implements SmellDetector {
     protected final List<ClassBean> projectClasses;
-    protected final ComponentSimilarity componentSimilarity;
 
-    public AbstractDetector(List<ClassBean> projectClasses, ComponentSimilarity componentSimilarity) {
+    public AbstractDetector(List<ClassBean> projectClasses) {
         this.projectClasses = projectClasses;
-        this.componentSimilarity = componentSimilarity;
     }
 }

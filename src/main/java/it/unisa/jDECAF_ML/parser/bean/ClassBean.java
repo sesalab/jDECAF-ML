@@ -1,8 +1,6 @@
 package it.unisa.jDECAF_ML.parser.bean;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 public class ClassBean extends ComponentBean implements Comparable {
 
@@ -111,4 +109,19 @@ public class ClassBean extends ComponentBean implements Comparable {
         return hash;
     }
 
+    public Double textualClassCohesion() {
+        List<Double> similaritiesBetweenMethods = new LinkedList<>();
+
+        for(MethodBean method: getMethods()){
+            for(MethodBean otherMethod: getMethods()){
+                if(!method.equals(otherMethod)){
+                    Double methodsSimilarity = method.textualSimilarityWith(otherMethod);
+                    similaritiesBetweenMethods.add(methodsSimilarity);
+                }
+            }
+        }
+        Double sum = similaritiesBetweenMethods.stream().reduce(0.0, Double::sum);
+        int nOfComparisons = similaritiesBetweenMethods.size();
+        return nOfComparisons == 0 ? 1 : sum/ nOfComparisons;
+    }
 }

@@ -12,11 +12,12 @@ import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
 import it.unisa.jDECAF_ML.taco.TacoAnalysis;
-import it.unisa.jDECAF_ML.taco.detectors.*;
-import it.unisa.jDECAF_ML.taco.normalizer.IRNormalizer;
+import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
+import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
+import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
+import it.unisa.jDECAF_ML.taco.detectors.SmellDetector;
 import it.unisa.jDECAF_ML.taco.presenters.ApacheTacoAnalysisCsvPresenter;
 import it.unisa.jDECAF_ML.taco.presenters.TacoAnalysisPresenter;
-import org.apache.commons.text.similarity.CosineDistance;
 import weka.classifiers.bayes.NaiveBayes;
 
 import java.io.File;
@@ -198,17 +199,16 @@ public class Main {
     }
 
     private static SmellDetector getSmellDetector(String smellName, List<ClassBean> allProjectClasses) {
-        ComponentSimilarity componentSimilarity = new ApacheTextComponentSimilarity(new CosineDistance(), new IRNormalizer());
         SmellDetector detector;
         switch (smellName){
             case "LargeClass":
-                detector = new BlobDetector(allProjectClasses,componentSimilarity);
+                detector = new BlobDetector(allProjectClasses);
                 break;
             case "FeatureEnvy":
-                detector = new FeatureEnvyDetector(allProjectClasses,componentSimilarity);
+                detector = new FeatureEnvyDetector(allProjectClasses);
                 break;
             case "LongMethod":
-                detector = new LongMethodDetector(allProjectClasses,componentSimilarity);
+                detector = new LongMethodDetector(allProjectClasses);
                 break;
             default:
                 throw new IllegalArgumentException("There is no TACO detector for this smell");

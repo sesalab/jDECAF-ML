@@ -209,4 +209,18 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
         return false;
     }
 
+    public Double textualMethodCohesion() {
+        Double methodsSimilarities = 0.0;
+        int comparisons = 0;
+
+        for (MethodBlockBean currentBlock: getBlocks()){
+            for (MethodBlockBean otherBlock: getBlocks()){
+                if(!currentBlock.equals(otherBlock)){
+                    methodsSimilarities += currentBlock.textualSimilarityWith(otherBlock);
+                    comparisons++;
+                }
+            }
+        }
+        return comparisons == 0 ? 1 : methodsSimilarities/comparisons;
+    }
 }
