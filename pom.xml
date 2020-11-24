@@ -93,6 +93,11 @@
             <version>1.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.repodriller</groupId>
+            <artifactId>repodriller</artifactId>
+            <version>1.4.0</version>
+        </dependency>
 
 
     </dependencies>
