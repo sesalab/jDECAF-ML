@@ -23,7 +23,7 @@ public class SpaghettiCodeDetector implements SmellDetector {
     }
 
     private AnalyzedComponent analyzeClass(ClassBean clazz) {
-        
+
         List<AnalyzedComponent> longMethodsCandidates = longMethodDetector.detectSmells(Collections.singletonList(clazz));
         List<Double> smellinessProbabilities = longMethodsCandidates.stream().map(AnalyzedComponent::getSmellinessProbability).collect(Collectors.toList());
         List<List<Double>> probabilitiesPowerSet = getPowerSet(smellinessProbabilities);
