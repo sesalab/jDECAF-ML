@@ -68,17 +68,17 @@ public class ReadSourceCode {
 
     }
 
-    public static ArrayList<ClassBean> readSourceCode(File path) throws IOException {
+    public static ArrayList<ClassBean> readSourceCode(File workTreeFile) throws IOException {
 
         ArrayList<ClassBean> classes = new ArrayList<>();
 
-        if (path.isDirectory() && !path.getName().equals(".DS_Store") && !path.getName().equals("bin")) {
-            for (File f : path.listFiles()) {
+        if (workTreeFile.isDirectory() && !workTreeFile.getName().equals(".DS_Store") && !workTreeFile.getName().equals("bin")) {
+            for (File f : workTreeFile.listFiles()) {
                 classes.addAll(readSourceCode(f));
             }
         } else {
-            if (path.getName().endsWith(".java")) {
-                String source = readFile(path.getAbsolutePath());
+            if (workTreeFile.getName().endsWith(".java")) {
+                String source = readFile(workTreeFile.getAbsolutePath());
                 // Get the package
                 String regex = "package .*;";
                 Pattern pattern = Pattern.compile(regex);

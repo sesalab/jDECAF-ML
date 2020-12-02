@@ -21,7 +21,7 @@ public class BlobDetectorTest {
         onlyMethod.setTextContent("detect smell similarity");
         aClass.setMethods(Collections.singletonList(onlyMethod));
 
-        SmellDetector blobDetector = new BlobDetector();
+        CodeSmellDetector blobDetector = new BlobDetector();
         List<AnalyzedComponent> analyzedComponents = blobDetector.detectSmells(Collections.singletonList(aClass));
 
         assertThat(analyzedComponents.size()).isEqualTo(1);
@@ -46,7 +46,7 @@ public class BlobDetectorTest {
 
         aClass.setMethods(Arrays.asList(firstMethod,secondMethod));
 
-        SmellDetector blobDetector = new BlobDetector();
+        CodeSmellDetector blobDetector = new BlobDetector();
         List<AnalyzedComponent> analyzedComponents = blobDetector.detectSmells(Collections.singletonList(aClass));
 
         assertThat(analyzedComponents.size()).isEqualTo(1);

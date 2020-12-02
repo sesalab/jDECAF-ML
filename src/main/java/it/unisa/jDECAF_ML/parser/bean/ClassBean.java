@@ -9,6 +9,7 @@ public class ClassBean extends ComponentBean implements Comparable {
     private Collection<String> imports;
     private String superclass;
     private String belongingPackage;
+    private String containingFileName;
 
     public ClassBean() {
         super(null);
@@ -49,6 +50,14 @@ public class ClassBean extends ComponentBean implements Comparable {
     public void removeMethod(MethodBean pMethod) {
         methods.remove(pMethod);
         pMethod.setBelongingClass(null);
+    }
+
+    public String getContainingFileName() {
+        return containingFileName;
+    }
+
+    public void setContainingFileName(String containingFileName) {
+        this.containingFileName = containingFileName;
     }
 
     @Override

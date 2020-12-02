@@ -70,7 +70,7 @@ public class SpaghettiCodeDetectorTest {
         }
     }
 
-    private static class AllLongMethodsDetector extends LongMethodDetector{
+    private static class AllLongMethodsDetector extends LongMethodDetector {
         @Override
         public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {
             List<AnalyzedComponent> result = new ArrayList<>();

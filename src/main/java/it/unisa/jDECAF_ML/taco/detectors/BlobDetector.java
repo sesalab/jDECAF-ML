@@ -5,7 +5,7 @@ import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BlobDetector implements SmellDetector {
+public class BlobDetector implements CodeSmellDetector {
 
     @Override
     public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {

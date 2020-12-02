@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
-public class FeatureEnvyDetector implements SmellDetector {
+public class FeatureEnvyDetector implements CodeSmellDetector {
 
     private final List<ClassBean> projectClasses;
 

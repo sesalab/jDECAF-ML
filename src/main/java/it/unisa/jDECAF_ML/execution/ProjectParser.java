@@ -18,11 +18,14 @@ public class ProjectParser {
         List<FileBean> repoFiles = Git.gitList(new File(projectPath), version);
         System.out.println("Repo Files Size: " + repoFiles.size());
         List<ClassBean> projectClasses = new ArrayList<ClassBean>();
-        for (FileBean file : repoFiles) {
-            if (file.getPath().contains(".java")) {
-                File workTreeFile = new File(projectPath + "/" + file.getPath());
+        for (FileBean repoFile : repoFiles) {
+            if (repoFile.getPath().contains(".java")) {
+                File workTreeFile = new File(projectPath + "/" + repoFile.getPath());
                 if (workTreeFile.exists()) {
-                    projectClasses.addAll(ReadSourceCode.readSourceCode(workTreeFile));
+                    ArrayList<ClassBean> foundClasses = ReadSourceCode.readSourceCode(workTreeFile);
+                    //Forced to do it there as readSource code is a mess and recursive. It should be put in read source code.
+                    foundClasses.forEach(clazz -> clazz.setContainingFileName(repoFile.getPath()));
+                    projectClasses.addAll(foundClasses);
                 }
             }
         }

@@ -23,7 +23,7 @@ public class FeatureEnvyDetectorTest {
         onlyMethod.setTextContent("detect smell similarity");
         aClass.setMethods(Collections.singletonList(onlyMethod));
 
-        SmellDetector detector = new FeatureEnvyDetector(Collections.singletonList(aClass));
+        CodeSmellDetector detector = new FeatureEnvyDetector(Collections.singletonList(aClass));
         List<AnalyzedComponent> analyzedComponents = detector.detectSmells(Collections.singletonList(aClass));
 
         assertThat(analyzedComponents.size()).isEqualTo(1);
@@ -48,7 +48,7 @@ public class FeatureEnvyDetectorTest {
         secondClass.setName("SecondClass");
         secondClass.setTextContent("convert local time");
 
-        SmellDetector detector = new FeatureEnvyDetector(Arrays.asList(firstClass,secondClass));
+        CodeSmellDetector detector = new FeatureEnvyDetector(Arrays.asList(firstClass,secondClass));
         List<AnalyzedComponent> analyzedComponents = detector.detectSmells(Arrays.asList(firstClass,secondClass));
 
         assertThat(analyzedComponents.size()).isEqualTo(1);

@@ -6,7 +6,7 @@ import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LongMethodDetector implements SmellDetector {
+public class LongMethodDetector implements CodeSmellDetector {
 
     @Override
     public List<AnalyzedComponent> detectSmells(List<ClassBean> classesUnderAnalysis) {

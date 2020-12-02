@@ -8,17 +8,14 @@ package it.unisa.jDECAF_ML.execution;
 import it.unisa.jDECAF_ML.bean.Checkout;
 import it.unisa.jDECAF_ML.bean.Git;
 import it.unisa.jDECAF_ML.decor.*;
+import it.unisa.jDECAF_ML.hist.AnalyzedComponent;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
-import it.unisa.jDECAF_ML.taco.TacoAnalysis;
 import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
+import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
 import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
-import it.unisa.jDECAF_ML.taco.detectors.SmellDetector;
-import it.unisa.jDECAF_ML.taco.presenters.ApacheTacoAnalysisCsvPresenter;
-import it.unisa.jDECAF_ML.taco.presenters.TacoAnalysisPresenter;
-import weka.classifiers.bayes.NaiveBayes;
 
 import java.io.File;
 import java.io.IOException;
@@ -168,18 +165,28 @@ public class Main {
             ((LongParameterListRule) detectionRule).setProjectClasses(classes);
         }
 
-        CalculateMetrics calculateMetrics = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
-        calculateMetrics.execute();
+        String projectPathName = baseFolder + File.separator + projectName;
+        File projectPath = new File(projectPathName);
 
-        System.out.println("Performing TACO analysis...");
-        SmellDetector detector = getSmellDetector(smellName, allProjectClasses);
-        TacoAnalysisPresenter csvPresenter = new ApacheTacoAnalysisCsvPresenter(outputFolder + File.separator + projectName);
-        TacoAnalysis tacoAnalysisUseCase = new TacoAnalysis(allProjectClasses, detector,csvPresenter);
-        tacoAnalysisUseCase.execute();
+        System.out.println("Mining repo at "+projectPath.getAbsolutePath());
+        it.unisa.jDECAF_ML.hist.BlobDetector detector = new it.unisa.jDECAF_ML.hist.BlobDetector(projectPath.getAbsolutePath());
+        List<AnalyzedComponent> historicalSmellyBean = detector.detectSmells(allProjectClasses);
+        System.out.println("Historical smelly component--------");
+        historicalSmellyBean.forEach(System.out::println);
 
-        new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
-        System.out.println(outputFolder + "/" + projectName + "/data.csv");
-        new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);
+
+//        CalculateMetrics calculateMetrics = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
+//        calculateMetrics.execute();
+//
+//        System.out.println("Performing TACO analysis...");
+//        CodeSmellDetector detector = getSmellDetector(smellName, allProjectClasses);
+//        TacoAnalysisPresenter csvPresenter = new ApacheTacoAnalysisCsvPresenter(outputFolder + File.separator + projectName);
+//        TacoAnalysis tacoAnalysisUseCase = new TacoAnalysis(allProjectClasses, detector,csvPresenter);
+//        tacoAnalysisUseCase.execute();
+//
+//        new WekaEvaluator(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/output.csv", new NaiveBayes(), 30);
+//        System.out.println(outputFolder + "/" + projectName + "/data.csv");
+//        new BalancingComparison(outputFolder + "/" + projectName + "/data.csv", outputFolder + "/" + projectName + "/balancing.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 6, classes, methods, classSmell, detectionRule);
 
 
         //new BalancingComparison_NB(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/balancing_NB.csv", outputFolder + "/" + projectName + "/overlap.csv", new NaiveBayes(), 1, classes, methods, classSmell, dr);
@@ -198,8 +205,8 @@ public class Main {
 
     }
 
-    private static SmellDetector getSmellDetector(String smellName, List<ClassBean> allProjectClasses) {
-        SmellDetector detector;
+    private static CodeSmellDetector getSmellDetector(String smellName, List<ClassBean> allProjectClasses) {
+        CodeSmellDetector detector;
         switch (smellName){
             case "LargeClass":
                 detector = new BlobDetector();
