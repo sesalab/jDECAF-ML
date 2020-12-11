@@ -19,6 +19,8 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     private List<SingleVariableDeclaration> parameters;
     private ClassBean belongingClass;
     private Collection<MethodBlockBean> blocks;
+    private int startLine;
+    private int endLine;
 
     public MethodBean() {
         super(null);
@@ -26,6 +28,22 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
         methodCalls = new ArrayList<>();
         foreignAccessedFields = new ArrayList<>();
         blocks = new ArrayList<>();
+    }
+
+    public int getStartLine() {
+        return startLine;
+    }
+
+    public void setStartLine(int startLine) {
+        this.startLine = startLine;
+    }
+
+    public int getEndLine() {
+        return endLine;
+    }
+
+    public void setEndLine(int endLine) {
+        this.endLine = endLine;
     }
 
     @Override
@@ -118,27 +136,27 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
 
     @Override
     public String toString() {
-
-        String string = "("
-                + name
-                + "|"
-                + (textContent.length() > 10 ? textContent.replace("\n", " ")
-                .replace("\t", "").substring(0, 10).concat("...") : "")
-                + "|";
-
-        for (InstanceVariableBean usedInstanceVariable : usedInstanceVariables) {
-            string += usedInstanceVariable.getName() + ",";
-        }
-        string = string.substring(0, string.length() - 1);
-        string += "|";
-
-        for (MethodBean methodCall : methodCalls) {
-            string += methodCall.getName() + ",";
-        }
-        string = string.substring(0, string.length() - 1);
-        string += ")";
-
-        return string;
+        return "{ MethodBean "+ getQualifiedName() + "}";
+//        String string = "("
+//                + name
+//                + "|"
+//                + (textContent.length() > 10 ? textContent.replace("\n", " ")
+//                .replace("\t", "").substring(0, 10).concat("...") : "")
+//                + "|";
+//
+//        for (InstanceVariableBean usedInstanceVariable : usedInstanceVariables) {
+//            string += usedInstanceVariable.getName() + ",";
+//        }
+//        string = string.substring(0, string.length() - 1);
+//        string += "|";
+//
+//        for (MethodBean methodCall : methodCalls) {
+//            string += methodCall.getName() + ",";
+//        }
+//        string = string.substring(0, string.length() - 1);
+//        string += ")";
+//
+//        return string;
 
     }
 
@@ -175,7 +193,7 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     @Override
     public boolean equals(Object arg) {
         if (arg instanceof MethodBean) {
-            return this.getName().equals(((MethodBean) arg).getName());
+            return this.getQualifiedName().equals(((MethodBean) arg).getQualifiedName());
         }
         return false;
     }
@@ -183,7 +201,7 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.getQualifiedName());
         return hash;
     }
     

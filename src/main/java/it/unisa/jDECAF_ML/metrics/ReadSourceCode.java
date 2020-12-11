@@ -11,13 +11,14 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ReadSourceCode {
 
-    public static ArrayList<ClassBean> readSourceCodeFromString(String source, ArrayList<ClassBean> classes) {
-
+    public static List<ClassBean> readSourceCodeFromString(String source) {
+        List<ClassBean> classes = new ArrayList<>();
         // Get the package
         String regex = "package .*;";
         Pattern pattern = Pattern.compile(regex);
@@ -56,8 +57,7 @@ public class ReadSourceCode {
 
         ArrayList<ClassBean> classBeans = new ArrayList<>();
         for (TypeDeclaration classNode : classNodes) {
-            classBeans.add(ClassParser.parse(classNode, belongingPackage,
-                    imports));
+            classBeans.add(ClassParser.parse(classNode, belongingPackage, imports, unit));
         }
 
         if (classBeans.size() > 0) {
@@ -78,58 +78,17 @@ public class ReadSourceCode {
             }
         } else {
             if (workTreeFile.getName().endsWith(".java")) {
-                String source = readFile(workTreeFile.getAbsolutePath());
-                // Get the package
-                String regex = "package .*;";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(source);
-
-                String belongingPackage = "";
-
-                if (matcher.find()) {
-                    belongingPackage = matcher.group();
-                }
-
-                belongingPackage = belongingPackage.replace("package ", "");
-                belongingPackage = belongingPackage.replace(";", "");
-
-                regex = "import .*;";
-                pattern = Pattern.compile(regex);
-                matcher = pattern.matcher(source);
-
-                ArrayList<String> imports = new ArrayList<>();
-
-                while (matcher.find()) {
-                    String tmpImport = matcher.group();
-                    if (!tmpImport.startsWith("java.")) {
-                        imports.add(tmpImport);
-                    }
-                }
-
-                ASTParser parser = ASTParser.newParser(AST.JLS8);
-                parser.setKind(ASTParser.K_COMPILATION_UNIT);
-                parser.setSource(source.toCharArray());
-
-                CompilationUnit unit = (CompilationUnit) parser.createAST(null);
-
-                Collection<TypeDeclaration> classNodes = new ArrayList<>();
-                unit.accept(new ClassVisitor(classNodes));
-
-                ArrayList<ClassBean> classBeans = new ArrayList<>();
-                for (TypeDeclaration classNode : classNodes) {
-                    classBeans.add(ClassParser.parse(classNode,
-                            belongingPackage, imports));
-                }
-
-                if (classBeans.size() > 0) {
-                    classes.add(classBeans.get(0));
-                }
-
+                classes.addAll(parseFile(workTreeFile));
             }
         }
 
         return classes;
 
+    }
+
+    public static List<ClassBean> parseFile(File workTreeFile) throws IOException {
+        String source = readFile(workTreeFile.getAbsolutePath());
+        return readSourceCodeFromString(source);
     }
 
     private static String readFile(String nomeFile) throws IOException {

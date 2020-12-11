@@ -4,10 +4,7 @@ import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.CommentBean;
 import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
-import org.eclipse.jdt.core.dom.Comment;
-import org.eclipse.jdt.core.dom.FieldDeclaration;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
+import org.eclipse.jdt.core.dom.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,7 +12,7 @@ import java.util.Collection;
 public class ClassParser {
 
     public static ClassBean parse(TypeDeclaration pClassNode,
-                                  String belongingPackage, ArrayList<String> imports) {
+                                  String belongingPackage, ArrayList<String> imports, CompilationUnit unit) {
 
         // Instantiate the bean
         ClassBean classBean = new ClassBean();
@@ -64,7 +61,7 @@ public class ClassParser {
         Collection<MethodBean> methodBeans = new ArrayList<>();
         for (MethodDeclaration methodNode : methodNodes) {
             methodBeans.add(MethodParser.parse(methodNode,
-                    instanceVariableBeans, classBean));
+                    instanceVariableBeans, classBean, unit));
         }
 
         // Iterate over the collection of methods

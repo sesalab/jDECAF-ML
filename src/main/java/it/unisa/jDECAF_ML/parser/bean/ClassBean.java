@@ -62,9 +62,7 @@ public class ClassBean extends ComponentBean implements Comparable {
 
     @Override
     public String toString() {
-        return "name = " + name + "\n"
-                + "instanceVariables = " + instanceVariables + "\n"
-                + "methods = " + methods + "\n";
+        return "{ClassBean "+getQualifiedName()+"}";
     }
 
     @Override

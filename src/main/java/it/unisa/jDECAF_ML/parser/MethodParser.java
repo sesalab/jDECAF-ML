@@ -6,6 +6,7 @@ import it.unisa.jDECAF_ML.parser.bean.InstanceVariableBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.Comment;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
 import java.util.ArrayList;
@@ -14,11 +15,9 @@ import java.util.HashSet;
 
 class MethodParser {
 
-    public static MethodBean parse(MethodDeclaration pMethodNode, Collection<InstanceVariableBean> pClassInstanceVariableBeans, ClassBean cb) {
-
+    public static MethodBean parse(MethodDeclaration pMethodNode, Collection<InstanceVariableBean> pClassInstanceVariableBeans, ClassBean cb, CompilationUnit unit) {
         // Instantiate the bean
         MethodBean methodBean = new MethodBean();
-
         // Set the name
         methodBean.setName(pMethodNode.getName().toString());
 
@@ -27,6 +26,9 @@ class MethodParser {
         methodBean.setReturnType(pMethodNode.getReturnType2());
         
         methodBean.setBelongingClass(cb);
+
+        methodBean.setStartLine(unit.getLineNumber(pMethodNode.getStartPosition()) -1);
+        methodBean.setEndLine(unit.getLineNumber(pMethodNode.getStartPosition() + pMethodNode.getLength()) -1);
 
         // Set the textual content
         methodBean.setTextContent(pMethodNode.toString());
@@ -37,15 +39,7 @@ class MethodParser {
         for (Comment comment : comments) {
             methodBean.addComment(new CommentBean(comment.toString()));
         }
-//        Pattern comment = Pattern.compile("((^\\s*[*])|(^\\s*[/][*])|(^\\s*[/][/])).*");
-//        String[] cLines = comment.split(pMethodNode.toString());
-//        int CLOC = 0;
-//        for (String s: lines){
-//            if (comment.matcher(s).matches())
-//                CLOC++;
-//        }
-//        
-//        methodBean.setCLOC(CLOC);
+
         // Get the names in the method
         Collection<String> names = new HashSet<>();
         pMethodNode.accept(new NameVisitor(names));
