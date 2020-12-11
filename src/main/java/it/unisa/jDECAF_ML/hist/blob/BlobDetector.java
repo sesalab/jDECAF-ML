@@ -1,5 +1,8 @@
-package it.unisa.jDECAF_ML.hist;
+package it.unisa.jDECAF_ML.hist.blob;
 
+import it.unisa.jDECAF_ML.hist.AnalyzedComponent;
+import it.unisa.jDECAF_ML.hist.CodeSmellDetector;
+import it.unisa.jDECAF_ML.hist.HistStudy;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import org.repodriller.RepoDriller;
 

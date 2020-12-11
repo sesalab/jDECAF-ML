@@ -1,4 +1,4 @@
-package it.unisa.jDECAF_ML.hist;
+package it.unisa.jDECAF_ML.hist.blob;
 
 import org.repodriller.domain.Commit;
 import org.repodriller.domain.Modification;

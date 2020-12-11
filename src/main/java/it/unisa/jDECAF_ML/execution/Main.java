@@ -12,13 +12,10 @@ import it.unisa.jDECAF_ML.hist.AnalyzedComponent;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
-import it.unisa.jDECAF_ML.taco.TacoAnalysis;
 import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
 import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
 import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
-import it.unisa.jDECAF_ML.taco.presenters.ApacheTacoAnalysisCsvPresenter;
-import it.unisa.jDECAF_ML.taco.presenters.TacoAnalysisPresenter;
 
 import java.io.File;
 import java.io.IOException;
@@ -172,7 +169,7 @@ public class Main {
         File projectPath = new File(projectPathName);
 
         System.out.println("Mining repo at "+projectPath.getAbsolutePath());
-            it.unisa.jDECAF_ML.hist.FeatureEnvyDetector detector  = new it.unisa.jDECAF_ML.hist.FeatureEnvyDetector(projectPath.getAbsolutePath());
+            it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector detector  = new it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector(projectPath.getAbsolutePath());
             List<AnalyzedComponent> historicalSmellyBean = detector.detectSmells(allProjectClasses);
 //        System.out.println("Historical smelly component--------");
 //        historicalSmellyBean.forEach(System.out::println);
