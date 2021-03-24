@@ -1,0 +1,9 @@
+java -Djava.util.Arrays.useLegacyMergeSort=true -jar "D:/Documenti/NetbeansProjects/jDECAF_ML/target/jDECAF_ML-1.0-SNAPSHOT-jar-with-dependencies.jar" "D:/PhD/Progetti/CodeSmells/jDecaf/data" "SpaghettiCode" "https://github.com/eclipse/eclipse.jdt.core.git" "eclipse" "R3_5" "D:/PhD/Progetti/CodeSmells/jDecaf/dataset//eclipse-data/org.eclipse.jdt.core_3.5_OK/Validated"
+
+java -Djava.util.Arrays.useLegacyMergeSort=true -jar "D:/Documenti/NetbeansProjects/jDECAF_ML/target/jDECAF_ML-1.0-SNAPSHOT-jar-with-dependencies.jar" "D:/PhD/Progetti/CodeSmells/jDecaf/data" "SpaghettiCode" "https://github.com/eclipse/eclipse.jdt.core.git" "eclipse" "R3_5_1" "D:/PhD/Progetti/CodeSmells/jDecaf/dataset//eclipse-data/org.eclipse.jdt.core_3.5.1_OK/Validated"
+
+java -Djava.util.Arrays.useLegacyMergeSort=true -jar "D:/Documenti/NetbeansProjects/jDECAF_ML/target/jDECAF_ML-1.0-SNAPSHOT-jar-with-dependencies.jar" "D:/PhD/Progetti/CodeSmells/jDecaf/data" "SpaghettiCode" "https://github.com/eclipse/eclipse.jdt.core.git" "eclipse" "R3_5_2" "D:/PhD/Progetti/CodeSmells/jDecaf/dataset//eclipse-data/org.eclipse.jdt.core_3.5.2_OK/Validated"
+
+java -Djava.util.Arrays.useLegacyMergeSort=true -jar "D:/Documenti/NetbeansProjects/jDECAF_ML/target/jDECAF_ML-1.0-SNAPSHOT-jar-with-dependencies.jar" "D:/PhD/Progetti/CodeSmells/jDecaf/data" "SpaghettiCode" "https://github.com/eclipse/eclipse.jdt.core.git" "eclipse" "R3_6" "D:/PhD/Progetti/CodeSmells/jDecaf/dataset//eclipse-data/org.eclipse.jdt.core_3.6_OK/Validated"
+
+java -Djava.util.Arrays.useLegacyMergeSort=true -jar "D:/Documenti/NetbeansProjects/jDECAF_ML/target/jDECAF_ML-1.0-SNAPSHOT-jar-with-dependencies.jar" "D:/PhD/Progetti/CodeSmells/jDecaf/data" "SpaghettiCode" "https://github.com/eclipse/eclipse.jdt.core.git" "eclipse" "R3_6_1" "D:/PhD/Progetti/CodeSmells/jDecaf/dataset//eclipse-data/org.eclipse.jdt.core_3.6.1_OK/Validated"
