@@ -1,3 +1,0 @@
-FSOutputStream.java; org.apache.hadoop.fs;
-FSInputStream.java; org.apache.hadoop.fs;
-CompressedWritable.java; org.apache.hadoop.io;

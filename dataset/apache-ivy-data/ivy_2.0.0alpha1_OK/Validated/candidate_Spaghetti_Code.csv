@@ -1,3 +1,0 @@
-IvyPublish.java; org.apache.ivy.ant;
-IvyResolve.java; org.apache.ivy.ant;
-IvyBuildList.java; org.apache.ivy.ant;

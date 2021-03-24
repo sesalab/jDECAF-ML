@@ -1,4 +1,0 @@
-IntrospectionHelper.java; org.apache.tools.ant;
-Zip.java; org.apache.tools.ant.taskdefs;
-FTPTaskMirrorImpl.java; org.apache.tools.ant.taskdefs.optional.net;
-FTP.java; org.apache.tools.ant.taskdefs.optional.net;

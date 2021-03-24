@@ -1,3 +1,0 @@
-DatabaseDescriptor.java; org.apache.cassandra.config;
-SystemTable.java; org.apache.cassandra.db;
-CassandraDaemon.java; org.apache.cassandra.thrift;

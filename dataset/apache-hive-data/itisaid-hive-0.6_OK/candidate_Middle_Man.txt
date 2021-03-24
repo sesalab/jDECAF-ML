@@ -1,3 +1,0 @@
-HiveConf.java: org.apache.hadoop.hive.conf
-UDFExampleFormat.java: org.apache.hadoop.hive.contrib.udf.example
-BinaryRecordReader.java: org.apache.hadoop.hive.ql.exec

@@ -1,3 +1,0 @@
-HiveUtils.java; org.apache.hadoop.hive.ql.metadata;
-Token.java; org.apache.hadoop.hive.serde2.dynamic_type;
-thrift_grammarTreeConstants.java; org.apache.hadoop.hive.serde2.dynamic_type;

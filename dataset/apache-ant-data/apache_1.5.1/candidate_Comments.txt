@@ -1,2 +1,0 @@
-setOutputFile: Javah.java: org.apache.tools.ant.taskdefs.optional
-execute: ServerDeploy.java: org.apache.tools.ant.taskdefs.optional.j2ee

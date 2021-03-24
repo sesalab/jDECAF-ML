@@ -1,2 +1,0 @@
-MetaParseState.java: org.apache.manifoldcf.crawler.connectors.webcrawler
-ManifoldCFConfiguration.java: org.apache.manifoldcf.core.system

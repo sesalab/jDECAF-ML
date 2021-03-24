@@ -1,4 +1,0 @@
-LazyResource.java; fr.jayasoft.ivy.repository;
-BasicResolver.java; fr.jayasoft.ivy.resolver;
-AbstractResourceResolver.java; fr.jayasoft.ivy.resolver;
-XMLHelper.java; fr.jayasoft.ivy.util;
