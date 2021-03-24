@@ -8,7 +8,9 @@ package it.unisa.jDECAF_ML.execution;
 import it.unisa.jDECAF_ML.bean.Checkout;
 import it.unisa.jDECAF_ML.bean.Git;
 import it.unisa.jDECAF_ML.decor.*;
-import it.unisa.jDECAF_ML.hist.AnalyzedComponent;
+import it.unisa.jDECAF_ML.hist.HistStudy;
+import it.unisa.jDECAF_ML.hist.ClassHistoricalMetricsExtractorVisitor;
+import it.unisa.jDECAF_ML.hist.MethodHistoricalMetricsExtractor;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
@@ -16,6 +18,11 @@ import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
 import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
 import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
+import org.repodriller.RepoDriller;
+import org.repodriller.Study;
+import org.repodriller.persistence.PersistenceMechanism;
+import org.repodriller.persistence.csv.CSVFile;
+import org.repodriller.scm.CommitVisitor;
 
 import java.io.File;
 import java.io.IOException;
@@ -169,8 +176,17 @@ public class Main {
         File projectPath = new File(projectPathName);
 
         System.out.println("Mining repo at "+projectPath.getAbsolutePath());
-            it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector detector  = new it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector(projectPath.getAbsolutePath());
-            List<AnalyzedComponent> historicalSmellyBean = detector.detectSmells(allProjectClasses);
+        ClassHistoricalMetricsExtractorVisitor historicalMetricsVisitor = new ClassHistoricalMetricsExtractorVisitor(allProjectClasses);
+        PersistenceMechanism classWriter = new CSVFile(outputFolder + File.separator + projectName + File.separator + "ClassHistoricalMetrics.csv");
+
+        CommitVisitor methodVisitor = new MethodHistoricalMetricsExtractor();
+        PersistenceMechanism methodWriter = new CSVFile(outputFolder + File.separator + projectName + File.separator + "MethodHistoricalMetrics.csv");
+
+        Study histStudy = new HistStudy(historicalMetricsVisitor,projectPathName, classWriter, methodVisitor, methodWriter);
+        new RepoDriller().start(histStudy);
+
+//            it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector detector  = new it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector(projectPath.getAbsolutePath());
+//            List<AnalyzedComponent> historicalSmellyBean = detector.detectSmells(allProjectClasses);
 //        System.out.println("Historical smelly component--------");
 //        historicalSmellyBean.forEach(System.out::println);
 
