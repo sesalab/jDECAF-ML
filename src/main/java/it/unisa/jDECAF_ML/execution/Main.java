@@ -14,6 +14,8 @@ import it.unisa.jDECAF_ML.hist.MethodHistoricalMetricsExtractor;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.*;
+import it.unisa.jDECAF_ML.taco.ClassTextualMetricsExtractor;
+import it.unisa.jDECAF_ML.taco.MethodTextualMetricsExtractor;
 import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
 import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
@@ -173,18 +175,14 @@ public class Main {
         }
 
         String projectPathName = baseFolder + File.separator + projectName;
-        File projectPath = new File(projectPathName);
+        String projectOutputFolderName = outputFolder + File.separator + projectName;
+        extractHistoricalMetrics(allProjectClasses, projectPathName, projectOutputFolderName);
 
-        System.out.println("Mining repo at "+projectPath.getAbsolutePath());
-        ClassHistoricalMetricsExtractorVisitor historicalMetricsVisitor = new ClassHistoricalMetricsExtractorVisitor(allProjectClasses);
-        PersistenceMechanism classWriter = new CSVFile(outputFolder + File.separator + projectName + File.separator + "ClassHistoricalMetrics.csv");
+        ClassTextualMetricsExtractor classTextualMetricsExtractor = new ClassTextualMetricsExtractor(new File(projectOutputFolderName + File.separator + "ClassTextualMetrics.csv"));
+        classTextualMetricsExtractor.extractMetrics(allProjectClasses);
 
-        CommitVisitor methodVisitor = new MethodHistoricalMetricsExtractor();
-        PersistenceMechanism methodWriter = new CSVFile(outputFolder + File.separator + projectName + File.separator + "MethodHistoricalMetrics.csv");
-
-        Study histStudy = new HistStudy(historicalMetricsVisitor,projectPathName, classWriter, methodVisitor, methodWriter);
-        new RepoDriller().start(histStudy);
-
+        MethodTextualMetricsExtractor methodTextualMetricsExtractor = new MethodTextualMetricsExtractor(new File(projectOutputFolderName + File.separator + "MethodTextualMetrics.csv"));
+        methodTextualMetricsExtractor.extractMetrics(allProjectClasses);
 //            it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector detector  = new it.unisa.jDECAF_ML.hist.feature_envy.FeatureEnvyDetector(projectPath.getAbsolutePath());
 //            List<AnalyzedComponent> historicalSmellyBean = detector.detectSmells(allProjectClasses);
 //        System.out.println("Historical smelly component--------");
@@ -219,6 +217,19 @@ public class Main {
         //new BaselineClassifiers(outputFolder + "/" + projectName + "/data_oracle.csv", outputFolder + "/" + projectName + "/baseline.csv", 1);
         //new CreatePythonScript(outputFolder, projectName, metrics, smells, 10);
 
+    }
+
+    private static void extractHistoricalMetrics(List<ClassBean> allProjectClasses, String projectPathName, String projectOutputFolderName) {
+        ClassHistoricalMetricsExtractorVisitor historicalMetricsVisitor = new ClassHistoricalMetricsExtractorVisitor(allProjectClasses);
+        String classMetricsOutputFileName = projectOutputFolderName + File.separator + "ClassHistoricalMetrics.csv";
+        PersistenceMechanism classWriter = new CSVFile(classMetricsOutputFileName, new String[]{"ClassQualifiedName", "ChangePercentage"});
+
+        CommitVisitor methodVisitor = new MethodHistoricalMetricsExtractor();
+        String methodMetricsOutputFilename = projectOutputFolderName + File.separator + "MethodHistoricalMetrics.csv";
+        PersistenceMechanism methodWriter = new CSVFile(methodMetricsOutputFilename, new String[]{"MethodQualifiedName","ChangePercentage"});
+
+        Study histStudy = new HistStudy(historicalMetricsVisitor,projectPathName, classWriter, methodVisitor, methodWriter);
+        new RepoDriller().start(histStudy);
     }
 
     private static CodeSmellDetector getSmellDetector(String smellName, List<ClassBean> allProjectClasses) {

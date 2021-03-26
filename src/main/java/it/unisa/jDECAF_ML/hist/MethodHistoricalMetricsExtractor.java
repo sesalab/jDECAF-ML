@@ -24,11 +24,6 @@ public class MethodHistoricalMetricsExtractor implements CommitVisitor {
     }
 
     @Override
-    public void initialize(SCMRepository repo, PersistenceMechanism writer) {
-        writer.write("MethodQualifiedName","ChangePercentage");
-    }
-
-    @Override
     public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism persistenceMechanism) {
         Set<MethodBean> changedMethods = commitParsingUtils.getChangedMethods(commit);
         changedMethods.forEach(this::updateChangeMethods);

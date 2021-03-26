@@ -51,4 +51,6 @@ public class HistStudy implements Study {
             e.printStackTrace();
         }
     }
+
+
 }

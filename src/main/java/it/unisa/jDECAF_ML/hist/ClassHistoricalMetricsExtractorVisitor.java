@@ -24,12 +24,7 @@ public class ClassHistoricalMetricsExtractorVisitor implements CommitVisitor {
         commitCount = new AtomicInteger(0);
     }
 
-    @Override
-    public void initialize(SCMRepository repo, PersistenceMechanism writer) {
-        writer.write("ClassQualifiedName","ChangePercentage");
-    }
-
-    @Override
+   @Override
     public void process(SCMRepository scmRepository, Commit commit, PersistenceMechanism persistenceMechanism) {
         for(Modification m : commit.getModifications()){
             String modifiedFileName = m.getFileName();
