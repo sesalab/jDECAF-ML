@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jDECAF-ML" />
         <module name="jDECAF_ML" />
+        <module name="jDECAF-ML" />
       </profile>
     </annotationProcessing>
   </component>

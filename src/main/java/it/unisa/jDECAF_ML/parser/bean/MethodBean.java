@@ -241,4 +241,18 @@ public class MethodBean extends ComponentBean implements Comparable<Object> {
         }
         return comparisons == 0 ? 1 : methodsSimilarities/comparisons;
     }
+
+    public Double meanSimilarityWithOtherClassMethods() {
+        Double similarity = 0.0;
+        int comparisons = 0;
+
+        for (MethodBean otherMethod : getBelongingClass().getMethods()){
+            if(!otherMethod.equals(this)){
+                similarity += textualSimilarityWith(otherMethod);
+                comparisons += 1;
+            }
+        }
+
+        return comparisons == 0 ? 1 : similarity/comparisons;
+    }
 }

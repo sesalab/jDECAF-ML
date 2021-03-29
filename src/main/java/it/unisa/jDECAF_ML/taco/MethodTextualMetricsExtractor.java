@@ -13,17 +13,18 @@ import java.util.List;
 
 public class MethodTextualMetricsExtractor {
 
-    private static final Logger log = LogManager.getLogger(ClassTextualMetricsExtractor.class);
+    private static final Logger log = LogManager.getLogger(MethodTextualMetricsExtractor.class);
 
     enum Headers {
         METHOD_QUALIFIED_NAME,
         TEXTUAL_COHESION,
-        WORDS_ENTROPY
+        WORDS_ENTROPY,
+        MEAN_SIMILARITY_W_CLASS_METHODS
     }
     private final CSVPrinter printer;
 
     public MethodTextualMetricsExtractor(File outputFile) throws IOException {
-        printer = new CSVPrinter(new FileWriter(outputFile), CSVFormat.DEFAULT.withHeader(ClassTextualMetricsExtractor.Headers.class));
+        printer = new CSVPrinter(new FileWriter(outputFile), CSVFormat.DEFAULT.withHeader(Headers.class));
     }
 
     public void extractMetrics(List<ClassBean> projectClasses){
@@ -31,7 +32,7 @@ public class MethodTextualMetricsExtractor {
         projectClasses.forEach(clazz -> clazz.getMethods().forEach(method ->{
             try {
                 log.info("Calculating metrics on "+method.getQualifiedName());
-                printer.printRecord(method.getQualifiedName(),method.textualMethodCohesion(), method.wordsEntropy());
+                printer.printRecord(method.getQualifiedName(),method.textualMethodCohesion(), method.wordsEntropy(), method.meanSimilarityWithOtherClassMethods());
             } catch (IOException e) {
                 e.printStackTrace();
             }

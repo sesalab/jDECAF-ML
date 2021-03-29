@@ -20,6 +20,7 @@ import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
 import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
 import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
+import org.apache.logging.log4j.LogManager;
 import org.repodriller.RepoDriller;
 import org.repodriller.Study;
 import org.repodriller.persistence.PersistenceMechanism;
