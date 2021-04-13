@@ -37,18 +37,20 @@ class CalculateMetrics {
         try {
 
             System.out.println("Calculating metrics...");
-            File outputFolder = new File(this.outputFolderPath + "/" + this.projectName);
+            String pathname = this.outputFolderPath + File.separator;
+            File outputFolder = new File(pathname);
             outputFolder.mkdirs();
 
-            File outputData = new File(this.outputFolderPath + "/" + this.projectName
-                    + "/data.csv");
+            String filename = this.classSmell ? "class-metrics.csv":"method-metrics.csv";
+            File outputData = new File(pathname + File.separator + filename);
             PrintWriter pw = new PrintWriter(outputData);
 
             pw.write("name,");
             for (Metric m : classMetrics) {
                 pw.write(m.getName() + ",");
             }
-            pw.write("isSmelly\n");
+            pw.write("\n");
+            //pw.write("isSmelly\n");
 
             /*leggi oracolo*/
 
@@ -71,14 +73,15 @@ class CalculateMetrics {
             for (Metric m : classMetrics) {
                 values[i++] = ((ClassMetric) m).evaluate(classBean, new ArrayList<>(projectClasses));
             }
-            isSmelly = smell.affectsComponent(classBean);
+            //isSmelly = smell.affectsComponent(classBean);
             String message = "";
 
-            message += classBean.getBelongingPackage() + "." + classBean.getName() + ".java" + ",";
+            message += classBean.getQualifiedName() + ",";
             for (i = 0; i < classMetrics.size(); i++) {
                 message += values[i] + ",";
             }
-            message += isSmelly + "\n";
+            message += "\n";
+            //message += isSmelly + "\n";
 
             pw.write(message);
         } else {
@@ -88,14 +91,14 @@ class CalculateMetrics {
                 for (Metric m : classMetrics) {
                     values[i++] = ((MethodMetric) m).evaluate(mb);
                 }
-                isSmelly = smell.affectsComponent(mb);
+                //isSmelly = smell.affectsComponent(mb);
                 String message = "";
 
-                message += mb.getBelongingClass().getBelongingPackage() + "." + mb.getBelongingClass().getName() + ".java/" + mb.getName() + ",";
+                message += mb.getQualifiedName() + ",";
                 for (i = 0; i < classMetrics.size(); i++) {
                     message += values[i] + ",";
                 }
-                message += isSmelly + "\n";
+                //message += isSmelly + "\n";
 
                 pw.write(message);
             }
