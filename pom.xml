@@ -121,13 +121,15 @@
                             <!--                            <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>-->
                             <mainClass>
-                                it.unisa.jDECAF_ML.execution.Main
+                                it.unisa.jDECAF_ML.execution.OnlyMetricsMain
                             </mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <finalName>jdecaf</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>

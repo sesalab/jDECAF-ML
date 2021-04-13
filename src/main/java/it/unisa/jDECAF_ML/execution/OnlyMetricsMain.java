@@ -1,14 +1,15 @@
 package it.unisa.jDECAF_ML.execution;
 
-import it.unisa.jDECAF_ML.bean.Checkout;
-import it.unisa.jDECAF_ML.bean.Git;
 import it.unisa.jDECAF_ML.hist.ClassHistoricalMetricsExtractorVisitor;
 import it.unisa.jDECAF_ML.hist.HistStudy;
 import it.unisa.jDECAF_ML.hist.MethodHistoricalMetricsExtractor;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.smell.AllMethodMetricsSmell;
 import it.unisa.jDECAF_ML.smell.AllMetricsSmell;
-import it.unisa.jDECAF_ML.smell.GodClass;
+import it.unisa.jDECAF_ML.taco.ClassTextualMetricsExtractor;
+import it.unisa.jDECAF_ML.taco.MethodTextualMetricsExtractor;
+import it.unisa.jDECAF_ML.utils.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.repodriller.RepoDriller;
 import org.repodriller.Study;
 import org.repodriller.persistence.PersistenceMechanism;
@@ -21,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class OnlyMetricsMain {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException, GitAPIException {
         String baseFolder = args[0];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data"
         //baseFolder = "/home/fabiano/Desktop/jdecaf";
         String folderName = args[1];//"derby"
@@ -32,11 +33,11 @@ public class OnlyMetricsMain {
         //String oracle = args[5];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
 
 
+        String repoPath = Paths.get(baseFolder, folderName).toString();
+        Git.clone(repoURL, repoPath);
+        Git.checkoutToTag(repoPath, tag);
 
-        Git.clone(repoURL, false, projectName, baseFolder, tag);
-        Checkout checkout = new Checkout(projectName, baseFolder, outputFolder, true);
-
-        List<ClassBean> allProjectClasses = parseProject(baseFolder, tag, projectName);
+        List<ClassBean> allProjectClasses = parseProject(repoPath, tag);
 
         CalculateMetrics.Input calculateMetricsInput = new CalculateMetrics.Input(new AllMetricsSmell(), true, allProjectClasses);
         CalculateMetrics cm = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput);
@@ -45,6 +46,28 @@ public class OnlyMetricsMain {
         CalculateMetrics.Input calculateMetricsInput2 = new CalculateMetrics.Input(new AllMethodMetricsSmell(), false, allProjectClasses);
         CalculateMetrics cm2 = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput2);
         cm2.execute();
+
+        extractHistoricalMetrics(allProjectClasses, repoPath, outputFolder);
+
+
+        new Thread(() -> {
+            try {
+                ClassTextualMetricsExtractor classTextualMetricsExtractor = new ClassTextualMetricsExtractor(new File(outputFolder + File.separator + "ClassTextualMetrics.csv"));
+                classTextualMetricsExtractor.extractMetrics(allProjectClasses);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }).start();
+
+        new Thread(() -> {
+            try {
+                MethodTextualMetricsExtractor methodTextualMetricsExtractor = new MethodTextualMetricsExtractor(new File(outputFolder + File.separator + "MethodTextualMetrics.csv"));
+                methodTextualMetricsExtractor.extractMetrics(allProjectClasses);
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }).start();
 
     }
 
@@ -61,9 +84,8 @@ public class OnlyMetricsMain {
         new RepoDriller().start(histStudy);
     }
 
-    private static List<ClassBean> parseProject(String baseFolder, String tag, String projectName) throws IOException {
-        String projectPath = baseFolder + "/" + projectName;
+    private static List<ClassBean> parseProject(String repoPath, String tag) throws IOException {
         ProjectParser projectParser = new ProjectParser();
-        return projectParser.getAllProjectClassBeans(tag,projectPath);
+        return projectParser.getAllProjectClassBeans(tag,repoPath);
     }
 }

@@ -5,8 +5,8 @@
  */
 package it.unisa.jDECAF_ML.execution;
 
-import it.unisa.jDECAF_ML.bean.Checkout;
-import it.unisa.jDECAF_ML.bean.Git;
+import it.unisa.jDECAF_ML.oldgit.Checkout;
+import it.unisa.jDECAF_ML.oldgit.Git;
 import it.unisa.jDECAF_ML.decor.*;
 import it.unisa.jDECAF_ML.hist.HistStudy;
 import it.unisa.jDECAF_ML.hist.ClassHistoricalMetricsExtractorVisitor;
@@ -20,7 +20,6 @@ import it.unisa.jDECAF_ML.taco.detectors.BlobDetector;
 import it.unisa.jDECAF_ML.taco.detectors.CodeSmellDetector;
 import it.unisa.jDECAF_ML.taco.detectors.FeatureEnvyDetector;
 import it.unisa.jDECAF_ML.taco.detectors.LongMethodDetector;
-import org.apache.logging.log4j.LogManager;
 import org.repodriller.RepoDriller;
 import org.repodriller.Study;
 import org.repodriller.persistence.PersistenceMechanism;

@@ -1,7 +1,7 @@
 package it.unisa.jDECAF_ML.execution;
 
-import it.unisa.jDECAF_ML.bean.FileBean;
-import it.unisa.jDECAF_ML.bean.Git;
+import it.unisa.jDECAF_ML.oldgit.FileBean;
+import it.unisa.jDECAF_ML.oldgit.Git;
 import it.unisa.jDECAF_ML.metrics.ReadSourceCode;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 

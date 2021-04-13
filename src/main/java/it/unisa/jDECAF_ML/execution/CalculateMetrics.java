@@ -41,7 +41,7 @@ class CalculateMetrics {
             File outputFolder = new File(pathname);
             outputFolder.mkdirs();
 
-            String filename = this.classSmell ? "class-metrics.csv":"method-metrics.csv";
+            String filename = this.classSmell ? "ClassStructuralMetrics.csv":"MethodStructuralMetrics.csv";
             File outputData = new File(pathname + File.separator + filename);
             PrintWriter pw = new PrintWriter(outputData);
 
