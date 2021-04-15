@@ -9,6 +9,9 @@ import it.unisa.jDECAF_ML.smell.AllMetricsSmell;
 import it.unisa.jDECAF_ML.taco.ClassTextualMetricsExtractor;
 import it.unisa.jDECAF_ML.taco.MethodTextualMetricsExtractor;
 import it.unisa.jDECAF_ML.utils.Git;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.repodriller.RepoDriller;
 import org.repodriller.Study;
@@ -16,10 +19,10 @@ import org.repodriller.persistence.PersistenceMechanism;
 import org.repodriller.persistence.csv.CSVFile;
 import org.repodriller.scm.CommitVisitor;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class OnlyMetricsMain {
     public static void main(String[] args) throws IOException, InterruptedException, GitAPIException {
@@ -30,7 +33,7 @@ public class OnlyMetricsMain {
         String tag = args[3];   //"10.3.3.0"
         String projectName = folderName + "-" + tag;
         String outputFolder = Paths.get(baseFolder,"metrics",projectName).toString();
-        //String oracle = args[5];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
+        String oracle = args[4];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
 
 
         String repoPath = Paths.get(baseFolder, folderName).toString();
@@ -69,6 +72,8 @@ public class OnlyMetricsMain {
             }
         }).start();
 
+        generateOracleDataset(oracle, outputFolder);
+
     }
 
     private static void extractHistoricalMetrics(List<ClassBean> allProjectClasses, String projectPathName, String projectOutputFolderName) {
@@ -87,5 +92,51 @@ public class OnlyMetricsMain {
     private static List<ClassBean> parseProject(String repoPath, String tag) throws IOException {
         ProjectParser projectParser = new ProjectParser();
         return projectParser.getAllProjectClassBeans(tag,repoPath);
+    }
+
+    private static void generateOracleDataset(String oraclePath, String outputFolder) throws IOException {
+        String[] classSmells = {"Large_Class","Spaghetti_Code","Complex_Class"};
+        String[] methodSmells = {"Feature_Envy","Long_Methods"};
+        final String classOutputFilename = "AllClassSmells.csv";
+        final String methodOutputFilename = "AllMethodSmells.csv";
+
+        for (String smell : classSmells){
+
+            FileWriter out = new FileWriter(Paths.get(outputFolder,"transformed_"+smell+".csv").toString());
+            CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader("ClassQualifiedName",smell));
+
+            Reader reader = new FileReader(Paths.get(oraclePath,"candidate_"+smell+".csv").toString());
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withDelimiter(';')
+                    .parse(reader);
+            for (CSVRecord record : records){
+                String qualifiedName = record.get(1).trim() + "." + record.get(0).trim();
+                printer.printRecord(qualifiedName, "1");
+            }
+
+            printer.flush();
+            printer.close();
+
+        }
+
+        for (String smell : methodSmells){
+
+            FileWriter out = new FileWriter(Paths.get(outputFolder,"transformed_"+smell+".csv").toString());
+            CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT.withHeader("MethodQualifiedName",smell));
+
+            Reader reader = new FileReader(Paths.get(oraclePath,"candidate_"+smell+".csv").toString());
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT
+                    .withDelimiter(';')
+                    .parse(reader);
+            for (CSVRecord record : records){
+                String qualifiedName = record.get(2).trim() + "." + record.get(1).trim() + "." + record.get(0).trim();
+                printer.printRecord(qualifiedName, "1");
+            }
+
+            printer.flush();
+            printer.close();
+
+        }
+
     }
 }

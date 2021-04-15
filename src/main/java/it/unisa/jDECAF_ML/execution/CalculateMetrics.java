@@ -6,6 +6,7 @@ import it.unisa.jDECAF_ML.metrics.methodmetrics.MethodMetric;
 import it.unisa.jDECAF_ML.parser.bean.ClassBean;
 import it.unisa.jDECAF_ML.parser.bean.MethodBean;
 import it.unisa.jDECAF_ML.smell.CodeSmell;
+import scala.util.parsing.combinator.testing.Str;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,13 +43,15 @@ class CalculateMetrics {
             outputFolder.mkdirs();
 
             String filename = this.classSmell ? "ClassStructuralMetrics.csv":"MethodStructuralMetrics.csv";
+            String name = this.classSmell ? "ClassQualifiedName" : "MethodQualifiedName";
             File outputData = new File(pathname + File.separator + filename);
             PrintWriter pw = new PrintWriter(outputData);
 
-            pw.write("name,");
+            pw.write(name + ",");
             for (Metric m : classMetrics) {
                 pw.write(m.getName() + ",");
             }
+            pw.write("path,");
             pw.write("\n");
             //pw.write("isSmelly\n");
 
@@ -80,7 +83,7 @@ class CalculateMetrics {
             for (i = 0; i < classMetrics.size(); i++) {
                 message += values[i] + ",";
             }
-            message += "\n";
+            message += classBean.getContainingFileName() + "\n";
             //message += isSmelly + "\n";
 
             pw.write(message);
@@ -98,6 +101,7 @@ class CalculateMetrics {
                 for (i = 0; i < classMetrics.size(); i++) {
                     message += values[i] + ",";
                 }
+                message += classBean.getContainingFileName() + "\n";
                 //message += isSmelly + "\n";
 
                 pw.write(message);
