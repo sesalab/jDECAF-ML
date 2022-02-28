@@ -23,7 +23,7 @@ public class DecorMain {
         String repoURL = args[2];//"https://github.com/apache/derby.git"
         String tag = args[3];   //"10.3.3.0"
         String projectName = folderName + "-" + tag;
-        String outputFolder = Paths.get(baseFolder,"decor",projectName).toString();
+        String outputFolder = Paths.get(baseFolder,"metrics",projectName).toString();
 
         String repoPath = Paths.get(baseFolder, folderName).toString();
         Git.clone(repoURL, repoPath);
@@ -51,8 +51,8 @@ public class DecorMain {
                 String isComplex = complexClassRule.isSmelly(classBean) ? "1" : "0";
 
                 classBean.getMethods().forEach(methodBean -> {
-                    String isFE = featureEnvyRule.isSmelly(classBean) ? "1" : "0";
-                    String isLong = longMethodRule.isSmelly(classBean) ? "1" : "0";
+                    String isFE = featureEnvyRule.isSmelly(methodBean) ? "1" : "0";
+                    String isLong = longMethodRule.isSmelly(methodBean) ? "1" : "0";
 
                     try {
                         methodPrinter.printRecord(methodBean.getQualifiedName(),isFE,isLong);

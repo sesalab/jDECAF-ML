@@ -31,9 +31,9 @@ public class OnlyMetricsMain {
         String folderName = args[1];//"derby"
         String repoURL = args[2];//"https://github.com/apache/derby.git"
         String tag = args[3];   //"10.3.3.0"
-        String projectName = folderName + "-" + tag;
+        String projectName = folderName + "-" + tag.replace('/','-');
         String outputFolder = Paths.get(baseFolder,"metrics",projectName).toString();
-        String oracle = args[4];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
+        //String oracle = args[4];    //"D:/Google Drive/Unisa/PhD/Progetti/CodeSmells/jDecaf/data/dataset/apache-derby-data/10.3_OK/Validated/candidate_Large_Class.csv"
 
 
         String repoPath = Paths.get(baseFolder, folderName).toString();
@@ -72,7 +72,7 @@ public class OnlyMetricsMain {
             }
         }).start();
 
-        generateOracleDataset(oracle, outputFolder);
+        //generateOracleDataset(oracle, outputFolder);
 
     }
 
