@@ -121,7 +121,7 @@
                             <!--                            <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>-->
                             <mainClass>
-                                it.unisa.jDECAF_ML.execution.DecorMain
+                                it.unisa.jDECAF_ML.execution.OnlyMetricsMain
                             </mainClass>
                         </manifest>
                     </archive>

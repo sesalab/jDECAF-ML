@@ -50,7 +50,7 @@ public class OnlyMetricsMain {
         CalculateMetrics cm2 = new CalculateMetrics(projectName, outputFolder, calculateMetricsInput2);
         cm2.execute();
 
-        extractHistoricalMetrics(allProjectClasses, repoPath, outputFolder);
+        //extractHistoricalMetrics(allProjectClasses, repoPath, outputFolder);
 
 
         new Thread(() -> {
