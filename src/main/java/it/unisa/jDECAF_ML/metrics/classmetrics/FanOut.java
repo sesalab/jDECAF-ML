@@ -18,7 +18,7 @@ public class FanOut implements ClassMetric {
 
     @Override
     public String getName() {
-        return "FanIn";
+        return "FanOut";
     }
 
     @Override

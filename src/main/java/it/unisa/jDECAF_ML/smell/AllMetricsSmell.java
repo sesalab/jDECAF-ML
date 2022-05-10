@@ -39,7 +39,8 @@ public class AllMetricsSmell extends CodeSmell {
             new PRB(),
             new WLOCNAMM(),
             new WMC(),
-            new WMCNAMM()
+            new WMCNAMM(),
+            new NMNOPARAM()
         );
     }
 }

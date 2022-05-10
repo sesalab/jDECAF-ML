@@ -53,24 +53,24 @@ public class OnlyMetricsMain {
         //extractHistoricalMetrics(allProjectClasses, repoPath, outputFolder);
 
 
-        new Thread(() -> {
-            try {
-                ClassTextualMetricsExtractor classTextualMetricsExtractor = new ClassTextualMetricsExtractor(new File(outputFolder + File.separator + "ClassTextualMetrics.csv"));
-                classTextualMetricsExtractor.extractMetrics(allProjectClasses);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }).start();
-
-        new Thread(() -> {
-            try {
-                MethodTextualMetricsExtractor methodTextualMetricsExtractor = new MethodTextualMetricsExtractor(new File(outputFolder + File.separator + "MethodTextualMetrics.csv"));
-                methodTextualMetricsExtractor.extractMetrics(allProjectClasses);
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-        }).start();
+//        new Thread(() -> {
+//            try {
+//                ClassTextualMetricsExtractor classTextualMetricsExtractor = new ClassTextualMetricsExtractor(new File(outputFolder + File.separator + "ClassTextualMetrics.csv"));
+//                classTextualMetricsExtractor.extractMetrics(allProjectClasses);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//        }).start();
+//
+//        new Thread(() -> {
+//            try {
+//                MethodTextualMetricsExtractor methodTextualMetricsExtractor = new MethodTextualMetricsExtractor(new File(outputFolder + File.separator + "MethodTextualMetrics.csv"));
+//                methodTextualMetricsExtractor.extractMetrics(allProjectClasses);
+//            } catch (IOException e){
+//                e.printStackTrace();
+//            }
+//        }).start();
 
         //generateOracleDataset(oracle, outputFolder);
 
